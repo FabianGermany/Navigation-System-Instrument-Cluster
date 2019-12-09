@@ -1,0 +1,43 @@
+{
+    "name": "agl-dashboard",
+    "version": "0.0.0",
+    "description": "Dashboard project for AGL based on html5 technologies",
+    "scripts": {
+        "webpack": "webpack",
+        "build": "webpack",
+        "start": "webpack-dev-server"
+    },
+    "homepage": "https://github.com/AGL-web-applications/dashboard",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:AGL-web-applications/dashboard.git"
+    },
+    "keywords": [
+        "agl",
+        "automotive",
+        "automotivegradelinux"
+    ],
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.11.2",
+        "clean-webpack-plugin": "^1.0.1",
+        "copy-webpack-plugin": "^4.6.0",
+        "css-loader": "^2.1.0",
+        "file-loader": "^4.0.0",
+        "html-webpack-plugin": "^3.2.0",
+        "image-webpack-loader": "^5.0.0",
+        "mini-css-extract-plugin": "^0.5.0",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "uglifyjs-webpack-plugin": "^2.1.1",
+        "webpack": "^4.29.5",
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.7.2",
+        "zip-webpack-plugin": "^3.0.0"
+    },
+    "dependencies": {
+        "mustache": "^3.1.0",
+        "bootstrap": "4.4.1",
+        "agl-js-api": "https://github.com/AGL-web-applications/agl-js-api.git#master"
+    }
+}

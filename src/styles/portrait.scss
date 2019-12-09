@@ -1,0 +1,10 @@
+@media (orientation: portrait) {
+
+    html {
+        background-image: url('../images/vertical_background.png');
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        height: 992px;
+    }
+}
