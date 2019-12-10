@@ -21,5 +21,7 @@ import { api } from 'agl-js-api';
 /* CSS */
 import './styles/app.scss';
 
+window.app = app;
+
 api.init();
 app.init();

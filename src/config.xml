@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" id="webapps-dashboard" version="0.0.0">
-  <name>SETTINGS</name>
+  <name>DASHBOARD</name>
   <icon src="icon.svg"/>
   <content src="index.html" type="text/html"/>
   <description>HTML5 Dashboard demo</description>

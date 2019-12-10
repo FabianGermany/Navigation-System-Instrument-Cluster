@@ -6,9 +6,30 @@ html {
     height: 100%;
     background-size: cover;
     -webkit-overflow-scrolling: touch;
+    overflow: hidden;
 }
-
+@keyframes blink{
+    0%  { opacity: .25;}
+    25% { opacity: .5;}
+    50% { opacity: .1;}
+    75% { opacity: .5;}
+    100%{ opacity: .25;}
+}
 body {
+    overflow: hidden;
+
+    .speed {
+        font-size: 8rem;
+    }
+
+    .car {
+        .warning {
+            left: 35%;
+            top: 50%;
+            animation: blink 3s linear infinite;
+        }
+    }
+    
     .log {
         display: none;
         position: absolute;

@@ -1,1 +1,178 @@
-kkkkkk
+<div class="container-fluid">
+    <div class="row align-items-end">
+        <div class="col-12">
+            <span class="speed">
+                {{ speed }}
+            </span>
+            MPH
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 px-0">
+            <div class="container px-0 tirePreassure mt-5">
+                <div class="row">
+                    <div class="col-12 no-gutters text-right">
+                        <small>
+                            LEFT FRONT TIRE
+                        </small>
+                    </div>
+                </div>
+                <div class="row value">
+                    <div class="col-12 text-right">
+                        <small class="text-success">
+                            {{ tires.front.left }} PSI <i class="far fa-check-circle"></i>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-0 tirePreassure mb-5 position-absolute" style="bottom: 0;">
+                <div class="row">
+                    <div class="col-12 no-gutters text-right">
+                        <small>
+                            LEFT REAR TIRE
+                        </small>
+                    </div>
+                </div>
+                <div class="row value">
+                    <div class="col-12 text-right">
+                        <small class="text-warning">
+                            {{ tires.rear.left }} PSI <i class="fas fa-exclamation-circle"></i>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 text-center car" onclick="app.simulate()">
+            <img src="images/HMI_Dashboard_Car_720.png">
+            {{ #isWarning }}
+            <div class="warning text-danger position-absolute">
+                <i class="fa-4x fas fa-exclamation-triangle"></i>
+            </div>
+            {{ /isWarning }}
+        </div>
+        <div class="col-3 px-0">
+            <div class="container px-0 tirePreassure mt-5">
+                <div class="row">
+                    <div class="col-12 no-gutters text-left">
+                        <small>
+                            RIGHT FRONT TIRE
+                        </small>
+                    </div>
+                </div>
+                <div class="row value">
+                    <div class="col-12 text-left">
+                        <small class="text-danger">
+                            <i class="far fa-times-circle"></i> {{ tires.front.right }} PSI
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-0 tirePreassure mb-5 position-absolute" style="bottom: 0;">
+                <div class="row">
+                    <div class="col-12 no-gutters text-left">
+                        <small>
+                            RIGHT REAR TIRE
+                        </small>
+                    </div>
+                </div>
+                <div class="row value">
+                    <div class="col-12 text-left">
+                        <small class="text-success">
+                            <i class="far fa-check-circle"></i> {{ tires.rear.right }}  PSI
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6 offset-6">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-9 offset-3">
+                        <div class="container">
+                            <div class="row">
+                                <small class="col-5 text-right">
+                                    LEVEL:
+                                </small>
+                                <small class="col-7 px-0 text-left text-primary">
+                                    {{ fuel.level }} GALLONS
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-6">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-9 offset-3">
+                        <div class="container">
+                            <div class="row">
+                                <small class="col-5 text-right">
+                                    RANGE:
+                                </small>
+                                <small class="col-7 px-0 text-left text-primary">
+                                    {{ fuel.range }} MI
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-6">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-9 offset-3">
+                        <div class="container">
+                            <div class="row">
+                                <small class="col-5 text-right">
+                                    AVG:
+                                </small>
+                                <small class="col-7 px-0 text-left text-primary">
+                                    {{ fuel.avg }} MPG
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        <i class="fa-2x fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="col-9">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ rpm.percent }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        <i class="fa-2x fas fa-gas-pump"></i>
+                    </div>
+                    <div class="col-9">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ fuel.percent }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
