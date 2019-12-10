@@ -22,7 +22,7 @@ var page = {
     },
     isWarning: true,
     fuel: {
-        percent: 100,
+        percent: 75,
         level: 14,
         range: 650,
         avg: 25.5
@@ -80,10 +80,6 @@ export function simulate() {
             page.speed -= Math.floor(Math.random()*10);
             page.rpm.percent = Math.min(80, Math.floor(Math.random()*90));
         }
-
-        page.fuel.percent = Math.round(page.fuel.percent - 0.01);
-        page.fuel.level = Math.round(page.fuel.level - 0.01);
-        page.fuel.range = Math.round(page.fuel.range - 0.01);
 
         show();
 

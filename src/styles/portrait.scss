@@ -5,6 +5,23 @@
         background-position: top center;
         background-repeat: no-repeat;
         background-color: transparent;
-        height: 992px;
+    }
+
+    body {
+        .speedometertop {
+            display: block;
+        }
+
+        .speedometerbottom {
+            display: none;
+        }
+
+        .car {
+            .warning {
+                left: 35%;
+                top: 50%;
+                animation: blink 3s linear infinite;
+            }
+        }
     }
 }
