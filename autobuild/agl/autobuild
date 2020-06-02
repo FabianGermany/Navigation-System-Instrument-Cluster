@@ -1,0 +1,104 @@
+#!/usr/bin/make -f
+# Copyright (C) 2015 - 2018 "IoT.bzh"
+# Copyright (C) 2020 Konsulko Group
+# Author "Romain Forlot" <romain.forlot@iot.bzh>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#	 http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+THISFILE  := $(lastword $(MAKEFILE_LIST))
+ROOT_DIR := $(abspath $(dir $(THISFILE))/../..)
+
+# Build directory
+# Note that unlike the autobuild makefiles for other types of widget,
+# for NPM based builds the BUILD_DIR is only used for copying the final
+# widget to, as building outside of the source tree is non-trivial to
+# make work with NPM.  As such, the default location is the root of the
+# source tree.
+#
+# Additionally, there is no real need for a debug build for these
+# applications, so no separate directory is defined, and all the related
+# debug targets are stubbed out.
+BUILD_DIR = $(ROOT_DIR)
+
+# Output directory variable for use in pattern rules.
+# This is intended for internal use only, hence the explicit override
+# definition.
+override OUTPUT_DIR = $(BUILD_DIR)
+
+# Final install directory for widgets
+DEST = $(OUTPUT_DIR)
+
+.PHONY: all help update install distclean
+.PHONY: clean clean-release clean-debug clean-all
+.PHONY: configure configure-release configure-debug
+.PHONY: build build-release build-debug build-all
+.PHONY: package package-release package-debug package-all
+
+help:
+	@echo "List of targets available:"
+	@echo ""
+	@echo "- all"
+	@echo "- help"
+	@echo "- clean"
+	@echo "- distclean"
+	@echo "- configure"
+	@echo "- build: compilation, link and prepare files for package into a widget"
+	@echo "- package: output a widget file '*.wgt'"
+	@echo "- install: install in $(DEST) directory"
+	@echo ""
+	@echo "Usage: ./autobuild/agl/autobuild package DEST=${HOME}/opt"
+	@echo "Don't use your build dir as DEST as wgt file is generated at this location"
+
+all: package-all
+
+clean-release:
+	@rm -rf $(ROOT_DIR)/node_modules $(ROOT_DIR)/package $(ROOT_DIR)/package-lock.json
+
+clean: clean-release
+
+clean-debug: ;
+
+clean-all: clean-release
+
+distclean: clean-all
+
+configure-release: clean-release
+	@rm -rf node_modules
+	@npm install
+
+configure: configure-release
+
+configure-debug: ;
+
+build-release: build-%: configure-%
+	npm run build
+
+build: build-release
+
+build-debug: ;
+
+build-all: build-release
+
+package-release: package-%: build-%
+	@cp $(ROOT_DIR)/package/*.wgt $(OUTPUT_DIR)/
+	@if [ "$(abspath $(DEST))" != "$(abspath $(OUTPUT_DIR))" ]; then \
+		mkdir -p $(DEST) && cp $(OUTPUT_DIR)/*.wgt $(DEST); \
+	fi
+
+package: package-release
+
+package-debug: ;
+
+package-all: package-release
+
+install: package
