@@ -73,6 +73,7 @@ clean-all: clean-release
 distclean: clean-all
 
 configure-release: clean-release
+	@cd $(ROOT_DIR)
 	@rm -rf node_modules
 	@npm install
 
@@ -90,6 +91,7 @@ build-debug: ;
 build-all: build-release
 
 package-release: package-%: build-%
+	@mkdir -p $(OUTPUT_DIR)/
 	@cp $(ROOT_DIR)/package/*.wgt $(OUTPUT_DIR)/
 	@if [ "$(abspath $(DEST))" != "$(abspath $(OUTPUT_DIR))" ]; then \
 		mkdir -p $(DEST) && cp $(OUTPUT_DIR)/*.wgt $(DEST); \
