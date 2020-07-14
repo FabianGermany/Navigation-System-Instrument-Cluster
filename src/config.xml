@@ -15,7 +15,6 @@
     <param name="urn:AGL:permission::public:applications:read" value="required" /> <!-- get app icons -->
   </feature>
   <feature name="urn:AGL:widget:required-api">
-    <param name="windowmanager" value="ws" />
     <param name="homescreen" value="ws" />
     <param name="low-can" value="ws"/>
   </feature>
