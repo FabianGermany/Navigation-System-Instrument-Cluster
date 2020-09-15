@@ -2,4 +2,4 @@
 host=gerrit.automotivelinux.org
 port=29418
 project=apps/html5-dashboard
-defaultbranch=master
+defaultbranch=jellyfish
