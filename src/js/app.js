@@ -5,7 +5,7 @@ import { lowcan } from 'agl-js-api';
 
 var template;
 var page = {
-    speed: 0,
+    speed: 50,
     tires: {
         front: {
             left: 21,
@@ -17,7 +17,7 @@ var page = {
         }
     },
     rpm: {
-        value: 0,
+        value: 2400,
         percent: 0
     },
     isWarning: true,
