@@ -23,10 +23,19 @@ var page = {
     isWarning: true,
     fuel: {
         percent: 75,
-        level: 14,
+        level: 48,
         range: 650,
         avg: 25.5
-    }
+    },
+
+    /*this should come from API...*/
+    ETA: "4:45 AM",
+    remaining_duration: "1:39 h" /*todo special format for time in hr, min etc.*/,
+    distance: 81,
+    allowed_spped: 50,
+    name_of_street: "Alteburgstraße",
+    remaining_distance_to_next_action: 5.4,
+    name_of_action: "straight_on"
 };
 
 export function show() {

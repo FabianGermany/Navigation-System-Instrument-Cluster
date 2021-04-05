@@ -1,63 +1,209 @@
-<!--This is the real container for the content-->
-<div class="container" style="height: 398px; width: 806px; background-color: rgba(98, 136, 240, 0.781);"> 
-    <!--width not 1024 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 806px for the rest-->
+<head>
+
+    <!--import Google Font "Inter"-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
 
 
-    <!--todo echte oder fake Werte bekommen für Geschw. usw. ggf. Fake funtion kopieren...-->
+    <style>
+
+        /*use Google font "Inter"*/
+        body{
+            font-family: 'Inter', sans-serif;
+        }
+
+        .center { /*vertically and horizontally centered*/ /*if only horizontally: use style-tag: text-align: center;*/
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        }
+
+        .outside-container { 
+    /*height: 200px;*/
+    position: relative;
+    }
 
 
-    <div class="row mt-5 inforow">
-        <div class="col-6">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-9 offset-3">
-                        <div class="container">
-                            <div class="row">
-                                <small class="col-5 text-right">
-                                    LEVEL:
-                                </small>
-                                <small class="col-7 px-0 text-left text-primary">
-                                    {{ fuel.level }} Liter
-                                </small>
+
+    /*Speed Sign
+    todo make red color linear sequence
+    */
+
+
+#outer-circle {
+   background: rgb(178,0,0);
+   background: linear-gradient(180deg, rgba(178,0,0,1) 0%, rgba(50,50,50,1) 100%); 
+   border-radius: 50%;
+   height: 80px;
+   width: 80px;
+   position: relative;
+   /* 
+    Child elements with absolute positioning will be 
+    positioned relative to this div 
+   */
+ }
+ #inner-circle {
+   position: absolute;
+   background: #fff;
+   color: black;
+   border-radius: 50%;
+   width: 60px;
+    height: 60px;
+    padding: 8px;
+    text-align: center;
+    font: 38px Arial, sans-serif;
+   /*
+    Put top edge and left edge in the center
+   */
+   top: 50%;
+   left: 50%;
+   margin: -30px 0px 0px -30px;
+   /* 
+    Offset the position correctly with
+    minus half of the width and minus half of the height 
+   */
+ }
+
+
+    </style>
+</head>
+
+
+<body>
+    <!--This is the real container for the content-->
+    <div class="container" style="height: 398px; width: 806px; background-color: rgba(98, 136, 240, 0.289);"> 
+        <!--width not 1024 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 806px for the rest-->
+
+
+        <!--todo speed sign: https://stackoverflow.com/questions/4861224/how-to-use-css-to-surround-a-number-with-a-circle-->
+
+        <!--todo echte oder fake Werte bekommen für Geschw. usw. ggf. Fake funtion kopieren...-->
+        <!-- todo gerundete Ecken etc.-->
+        <!--todo linksbündig etc.-->
+        
+        <!--some space horizontal-->
+        <div style="height: 10px; width: 806px"></div>
+
+        <!--use CSS grids instead of bootstrap-->
+        <div style="display: grid; grid-template-columns: repeat(100, 1fr);">    
+
+            <div style="grid-column: span 6;">
+                <!--empty-->
+            </div>
+            <div style="grid-column: span 30;">
+                <!--Info-Box-->
+                <div style="background-color: #14223F; 
+                padding-left: 25px; padding-right: 25px;
+                border-radius: 15px;">       
+                    <!--arrival time-->
+                    <div style="height: 125px">
+                        <div style="height: 8px;"></div>
+                        <div class="outside-container" style="">
+                            <div class="">
+                                <span style="font-size: 2rem; font-weight: bold">
+                                    {{ ETA }}
+                                </span>
                             </div>
                         </div>
+                        <div class="outside-container" style="">
+                            <div class="">
+                                <span style="font-size: 1.5rem"> 
+                                    Ankunft
+                                </span>
+                            </div>
+                        </div>
+                        <div style="height: 8px;"></div>
+                    </div>
+
+                
+                    <!--duration-->
+                    <div style="height: 125px;">
+                        <div style="height: 8px;"></div>
+                        <div class="outside-container" style="">
+                            <div class="">
+                                <span style="font-size: 2rem; font-weight: bold">
+                                    {{ remaining_duration }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="outside-container" style="">
+                            <div class="">
+                                <span style="font-size: 1.5rem"> 
+                                    Dauer
+                                </span>
+                            </div>
+                        </div>
+                        <div style="height: 10px;"></div>           
+                    </div>
+
+           
+                    <!--distance-->
+                    <div style="height: 125px;">
+                        <div style="height: 8px;"></div>
+                        <div class="outside-container" style="">
+                            <div class="">
+                                <span style="font-size: 2rem; font-weight: bold">
+                                    {{ distance }} km
+                                </span>
+                            </div>
+                        </div>
+                        <div class="outside-container" style="">
+                            <div class="">
+                                <span style="font-size: 1.5rem"> 
+                                    Distanz
+                                    <!--
+                                        Achtung: Mögliche Gesamtdistanz gemäß Tankfüllung
+                                        {{ fuel.range }} MI
+                                    -->
+                                </span>
+                            </div>
+                        </div>
+                        <div style="height: 8px;"></div>          
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row inforow">
-
-        <div class="col-6 inforow">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-9 offset-3">
-                        <div class="container">
-                            <div class="row">
-                                <small class="col-5 text-right">
-                                    RANGE:
-                                </small>
-                                <small class="col-7 px-0 text-left text-primary">
-                                    {{ fuel.range }} MI
-                                </small>
-                            </div>
-                        </div>
+            <div style="grid-column: span 4;">
+                <!--empty-->
+            </div>
+            <div style="grid-column: span 8;">
+                <!--Geschwindigkeit-->
+                <div id="outer-circle">
+                    <div id="inner-circle">    
+                        <b>30</b>          
                     </div>
                 </div>
             </div>
+            <div style="grid-column: span 22;">
+                <!--empty-->
+            </div>
+            <div style="grid-column: span 30;">
+                <!--rechte Box-->
+                <!--todo hier nochmal aufteilen für den Kompass etc.-->
+            </div>
         </div>
+
+        <!--new layer-->
+        <div style="display: grid; grid-template-columns: repeat(100, 1fr);">
+            <div style="grid-column: span 20;">
+                <!--empty-->
+            </div>
+            <div style="grid-column: span 30;">
+                test
+            </div>
+                <div style="grid-column: span 20;">
+                    <!--empty-->
+                </div>
+        </div>         
     </div>
 
 
-
-</div>
-
-
-
-<!--This is just black and not used!-->
-<div class="container" style="height: 882px; width: 806px; background-color: black;"> <!--1280-398=882-->
-</div>
-    
-
+    <!--This is just black and not used!-->
+    <div class="container" style="height: 882px; width: 806px; background-color: black;"> <!--1280-398=882-->
+    </div>
+        
+</body>
 
 
