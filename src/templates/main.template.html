@@ -67,6 +67,37 @@
    */
  }
 
+   /* 
+    Compass
+   */
+
+.compass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+  .compass__rose {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+    .compass__rose__dial {
+      height: 100%;
+      width: 100%;
+    }
+
+  .compass__pointer {
+    height: 100%;
+    width: 100%;
+  }
+
+
+
 
     </style>
 </head>
@@ -74,8 +105,8 @@
 
 <body>
     <!--This is the real container for the content-->
-    <div class="container" style="height: 398px; width: 806px; background-color: rgba(98, 136, 240, 0.289);"> 
-        <!--width not 1024 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 806px for the rest-->
+    <div class="container" style="height: 398px; width: 1062px; background-color: rgba(98, 136, 240, 0.289);"> 
+        <!--width not 1280 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 1062px for the rest-->
 
 
         <!--todo speed sign: https://stackoverflow.com/questions/4861224/how-to-use-css-to-surround-a-number-with-a-circle-->
@@ -85,19 +116,19 @@
         <!--todo linksbündig etc.-->
         
         <!--some space horizontal-->
-        <div style="height: 10px; width: 806px"></div>
+        <div style="height: 10px; width: 1062px"></div>
 
         <!--use CSS grids instead of bootstrap-->
         <div style="display: grid; grid-template-columns: repeat(100, 1fr);">    
 
-            <div style="grid-column: span 6;">
+            <div style="grid-column: span 3;">
                 <!--empty-->
             </div>
-            <div style="grid-column: span 30;">
+            <div style="grid-column: span 25;">
                 <!--Info-Box-->
                 <div style="background-color: #14223F; 
-                padding-left: 25px; padding-right: 25px;
-                border-radius: 15px;">       
+                padding-left: 40px; padding-right: 30px;
+                border-radius: 20px;">       
                     <!--arrival time-->
                     <div style="height: 125px">
                         <div style="height: 8px;"></div>
@@ -165,43 +196,107 @@
                     </div>
                 </div>
             </div>
-            <div style="grid-column: span 4;">
+            <div style="grid-column: span 6;">
                 <!--empty-->
             </div>
-            <div style="grid-column: span 8;">
+            <div style="grid-column: span 6;">
                 <!--Geschwindigkeit-->
                 <div id="outer-circle">
                     <div id="inner-circle">    
-                        <b>30</b>          
+                        <b> {{ allowed_speed }} </b>          
                     </div>
                 </div>
             </div>
-            <div style="grid-column: span 22;">
-                <!--empty-->
+            <div style="grid-column: span 4;">
+                <!--name of steet-->
+                <div style="height: 335px;"></div>
+                <div style="background-color: #000000; 
+                opacity: 0.4;
+                border-radius: 20px;
+                font-size: 1.2rem;
+                height: 40px;
+                line-height: 40px;
+                width: 200px;
+                text-align: center;">
+                    {{ name_of_street }}
+                </div>
+
             </div>
             <div style="grid-column: span 30;">
+                <!--empty-->
+            </div>
+            <div style="grid-column: span 25;">
                 <!--rechte Box-->
-                <!--todo hier nochmal aufteilen für den Kompass etc.-->
+                <div>
+                    <div style="background-color: #14223F; 
+                    opacity: 0.5;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                    font-size: 1.2rem;
+                    height: 175px;
+                    width: 281px;
+                    padding-left: 25px;
+                    padding-right: 25px">
+                        <div style="height: 10px;"></div>
+                        <div style="height: 30px;"> THIS IS <br> A PICTURE </div>
+                        <div>
+                            {{ remaining_distance_to_next_action }} km
+                        </div>
+                            
+                        <div>
+                            {{ name_of_action }}
+                        </div>
+                    </div>
+
+                    <!--todo hier nochmal aufteilen für den Kompass etc.-->
+                    <!--Kompass: https://github.com/lamplightdev/compass-->
+                    
+                    <div class="container">
+                        <div class="compass">
+                        <div id="rose" class="compass__rose">
+
+                            <svg class="compass__rose__dial" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+                            <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="none" />
+                            <polyline points="63,9  67,9  65,13" fill="white"/>
+                            <polyline points="121,63  121,67  119,65" fill="white"/>
+                            <polyline points="63,121  67,121  65,119" fill="white"/>
+                            <polyline points="9,63  9,67  11,65" fill="white"/>
+
+                            <text x="65" y="4.2" font-size="5" text-anchor="middle" fill="white">N</text>
+                            <text x="127" y="67" font-size="5" text-anchor="middle" fill="white">E</text>
+                            <text x="65" y="129" font-size="5" text-anchor="middle" fill="white">S</text>
+                            <text x="2.8" y="67" font-size="5" text-anchor="middle" fill="white">W</text>
+
+                            </svg>
+
+                        </div>
+
+                        <svg class="compass__pointer" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+                            <polyline points="60,60  70,60  65,15" fill="#b60000"/>
+                            <polyline points="60,70  70,70  65,115" fill="white"/>
+                            <circle cx="65" cy="65" r="7" stroke="#b60000" stroke-width="7" fill="none" />
+
+                        </svg>
+                        </div>
+                    </div>
+                    <script src="../js/compass.js"></script>
+
+
+
+
+
+
+
+
+                </div>
             </div>
         </div>
-
-        <!--new layer-->
-        <div style="display: grid; grid-template-columns: repeat(100, 1fr);">
-            <div style="grid-column: span 20;">
-                <!--empty-->
-            </div>
-            <div style="grid-column: span 30;">
-                test
-            </div>
-                <div style="grid-column: span 20;">
-                    <!--empty-->
-                </div>
-        </div>         
     </div>
 
-
     <!--This is just black and not used!-->
-    <div class="container" style="height: 882px; width: 806px; background-color: black;"> <!--1280-398=882-->
+    <div class="container" style="height: 882px; width: 1062px; background-color: black;"> <!--1280-398=882-->
     </div>
         
 </body>

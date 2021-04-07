@@ -32,10 +32,10 @@ var page = {
     ETA: "4:45 AM",
     remaining_duration: "1:39 h" /*todo special format for time in hr, min etc.*/,
     distance: 81,
-    allowed_spped: 50,
+    allowed_speed: 50,
     name_of_street: "Alteburgstraße",
     remaining_distance_to_next_action: 5.4,
-    name_of_action: "straight_on"
+    name_of_action: "gerade aus"
 };
 
 export function show() {
