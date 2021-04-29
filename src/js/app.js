@@ -110,10 +110,16 @@ export function initMap() {
 		}).addTo(map);
 
 		// show the scale bar on the lower left corner
-		L.control.scale().addTo(map);
+		// L.control.scale().addTo(map);
 
 		// show a marker on the map
 		L.marker({lon: 0, lat: 0}).bindPopup('The center of the world').addTo(map);
+
+        // add compass
+		var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+		map.addControl(comp);
+
+
 	} else {
 		console.log("Konnte div nicht finden");
 	}

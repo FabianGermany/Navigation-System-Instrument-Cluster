@@ -22,6 +22,11 @@ export function init() {
 
 		// show a marker on the map
 		L.marker({lon: 9.20427, lat: 48.49144},{icon: marker}).bindPopup('Reutlingen').addTo(map);
+
+		// add compass
+		var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+		map.addControl(comp);
+	
 	} else {
 		console.log("Konnte div nicht finden");
 	}

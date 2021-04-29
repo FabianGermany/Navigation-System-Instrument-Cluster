@@ -3,118 +3,8 @@
     <!--import Google Font "Inter"-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="../compass/leaflet-compass.css" />
 
-
-    <style>
-
-        /*use Google font "Inter"*/
-        body{
-            font-family: 'Inter', sans-serif;
-        }
-
-        .center { /*vertically and horizontally centered*/ /*if only horizontally: use style-tag: text-align: center;*/
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        }
-
-        .outside-container { 
-        /*height: 200px;*/
-        position: relative;
-        }
-
-
-
-        /*Speed Sign
-        todo make red color linear sequence
-        */
-
-
-        #outer-circle {
-        background: rgb(178,0,0);
-        background: linear-gradient(180deg, rgba(178,0,0,1) 0%, rgba(50,50,50,1) 100%); 
-        border-radius: 50%;
-        height: 80px;
-        width: 80px;
-        position: relative;
-        /* 
-            Child elements with absolute positioning will be 
-            positioned relative to this div 
-        */
-        }
-        #inner-circle {
-        position: absolute;
-        background: #fff;
-        color: black;
-        border-radius: 50%;
-        width: 60px;
-            height: 60px;
-            padding: 8px;
-            text-align: center;
-            font: 38px Arial, sans-serif;
-        /*
-            Put top edge and left edge in the center
-        */
-        top: 50%;
-        left: 50%;
-        margin: -30px 0px 0px -30px;
-        /* 
-            Offset the position correctly with
-            minus half of the width and minus half of the height 
-        */
-        }
-
-    /* 
-        Compass
-        TODO
-    */
-
-
-
-    /* 
-        Navigation
-    */
-
-
-    .background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -100;
-        }
-
-    .no-pd {
-        padding: 0px !important;
-    }
-
-    .no-mg {
-        margin: 0px !important;
-    }
-
-    .content {
-    position: relative;
-    z-index: 100;
-    }
-
-    .wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    }
-
-    .container {
-        padding-right: 0;
-        padding-left: 0;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-
-
-    </style>
 </head>
 
 
@@ -131,185 +21,185 @@
         <div class="content no-mg">
 
 
-    <!--This is the real container for the content-->
-    <div class="container" style="height: 398px; width: 1062px; background-color: transparent;">
-        <!--width not 1280 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 1062px for the rest
-        according to Documentation:
-        Display Dashboard: ca. Auflösung: 1280x398 (16:5) Bildschirm muss aber höher angespielt werden 1280x1024
-        -->
+            <!--This is the real container for the content-->
+            <div class="container" style="height: 398px; width: 1062px; background-color: transparent;">
+                <!--width not 1280 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 1062px for the rest
+                according to Documentation:
+                Display Dashboard: ca. Auflösung: 1280x398 (16:5) Bildschirm muss aber höher angespielt werden 1280x1024
+                -->
 
 
 
 
 
-        <!--todo speed sign: https://stackoverflow.com/questions/4861224/how-to-use-css-to-surround-a-number-with-a-circle-->
+                <!--todo speed sign: https://stackoverflow.com/questions/4861224/how-to-use-css-to-surround-a-number-with-a-circle-->
 
-        <!--todo echte oder fake Werte bekommen für Geschw. usw. ggf. Fake funtion kopieren...-->
-        <!-- todo gerundete Ecken etc.-->
-        <!--todo linksbündig etc.-->
-        
-        <!--some space horizontal-->
-        <div style="height: 10px; width: 1062px"></div>
+                <!--todo echte oder fake Werte bekommen für Geschw. usw. ggf. Fake funtion kopieren...-->
+                <!-- todo gerundete Ecken etc.-->
+                <!--todo linksbündig etc.-->
+                
+                <!--some space horizontal-->
+                <div style="height: 10px; width: 1062px"></div>
 
-        <!--use CSS grids instead of bootstrap-->
-        <div style="display: grid; grid-template-columns: repeat(100, 1fr);">    
+                <!--use CSS grids instead of bootstrap-->
+                <div style="display: grid; grid-template-columns: repeat(100, 1fr);">    
 
-            <div style="grid-column: span 3;">
-                <!--empty-->
-            </div>
-            <div style="grid-column: span 25;">
-                <!--Info-Box-->
-                <div style="background-color: #14223F; 
-                padding-left: 40px; padding-right: 30px;
-                border-radius: 20px;">       
-                    <!--arrival time-->
-                    <div style="height: 125px">
-                        <div style="height: 8px;"></div>
-                        <div class="outside-container" style="">
-                            <div class="">
-                                <span style="font-size: 2rem; font-weight: bold">
-                                    {{ ETA }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="outside-container" style="">
-                            <div class="">
-                                <span style="font-size: 1.5rem"> 
-                                    Ankunft
-                                </span>
-                            </div>
-                        </div>
-                        <div style="height: 8px;"></div>
+                    <div style="grid-column: span 3;">
+                        <!--empty-->
                     </div>
+                    <div style="grid-column: span 25;">
+                        <!--Info-Box-->
+                        <div style="background-color: #14223F; 
+                        padding-left: 40px; padding-right: 30px;
+                        border-radius: 20px;">       
+                            <!--arrival time-->
+                            <div style="height: 125px">
+                                <div style="height: 8px;"></div>
+                                <div class="outside-container" style="">
+                                    <div class="">
+                                        <span style="font-size: 2rem; font-weight: bold">
+                                            {{ ETA }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="outside-container" style="">
+                                    <div class="">
+                                        <span style="font-size: 1.5rem"> 
+                                            Ankunft
+                                        </span>
+                                    </div>
+                                </div>
+                                <div style="height: 8px;"></div>
+                            </div>
+
+                        
+                            <!--duration-->
+                            <div style="height: 125px;">
+                                <div style="height: 8px;"></div>
+                                <div class="outside-container" style="">
+                                    <div class="">
+                                        <span style="font-size: 2rem; font-weight: bold">
+                                            {{ remaining_duration }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="outside-container" style="">
+                                    <div class="">
+                                        <span style="font-size: 1.5rem"> 
+                                            Dauer
+                                        </span>
+                                    </div>
+                                </div>
+                                <div style="height: 10px;"></div>           
+                            </div>
 
                 
-                    <!--duration-->
-                    <div style="height: 125px;">
-                        <div style="height: 8px;"></div>
-                        <div class="outside-container" style="">
-                            <div class="">
-                                <span style="font-size: 2rem; font-weight: bold">
-                                    {{ remaining_duration }}
-                                </span>
+                            <!--distance-->
+                            <div style="height: 125px;">
+                                <div style="height: 8px;"></div>
+                                <div class="outside-container" style="">
+                                    <div class="">
+                                        <span style="font-size: 2rem; font-weight: bold">
+                                            {{ distance }} km
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="outside-container" style="">
+                                    <div class="">
+                                        <span style="font-size: 1.5rem"> 
+                                            Distanz
+                                            <!--
+                                                Achtung: Mögliche Gesamtdistanz gemäß Tankfüllung
+                                                {{ fuel.range }} MI
+                                            -->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div style="height: 8px;"></div>          
                             </div>
                         </div>
-                        <div class="outside-container" style="">
-                            <div class="">
-                                <span style="font-size: 1.5rem"> 
-                                    Dauer
-                                </span>
-                            </div>
-                        </div>
-                        <div style="height: 10px;"></div>           
                     </div>
-
-           
-                    <!--distance-->
-                    <div style="height: 125px;">
-                        <div style="height: 8px;"></div>
-                        <div class="outside-container" style="">
-                            <div class="">
-                                <span style="font-size: 2rem; font-weight: bold">
-                                    {{ distance }} km
-                                </span>
-                            </div>
-                        </div>
-                        <div class="outside-container" style="">
-                            <div class="">
-                                <span style="font-size: 1.5rem"> 
-                                    Distanz
-                                    <!--
-                                        Achtung: Mögliche Gesamtdistanz gemäß Tankfüllung
-                                        {{ fuel.range }} MI
-                                    -->
-                                </span>
-                            </div>
-                        </div>
-                        <div style="height: 8px;"></div>          
+                    <div style="grid-column: span 6;">
+                        <!--empty-->
                     </div>
-                </div>
-            </div>
-            <div style="grid-column: span 6;">
-                <!--empty-->
-            </div>
-            <div style="grid-column: span 6;">
-                <!--Geschwindigkeit-->
-                <div id="outer-circle">
-                    <div id="inner-circle">    
-                        <b> {{ allowed_speed }} </b>          
-                    </div>
-                </div>
-            </div>
-            <div style="grid-column: span 4;">
-                <!--name of steet-->
-                <div style="height: 335px;"></div>
-                <div style="background-color: #000000; 
-                opacity: 0.4;
-                border-radius: 20px;
-                font-size: 1.2rem;
-                height: 40px;
-                line-height: 40px;
-                width: 200px;
-                text-align: center;">
-                    {{ name_of_street }}
-                </div>
-
-            </div>
-            <div style="grid-column: span 30;">
-                <!--empty-->
-            </div>
-            <div style="grid-column: span 25;">
-                <!--rechte Box-->
-                <div>
-                    <div style="background-color: #14223F; 
-                    opacity: 0.5;
-                    border-top-left-radius: 20px;
-                    border-bottom-left-radius: 20px;
-                    font-size: 1.2rem;
-                    height: 175px;
-                    width: 275px;
-                    padding-left: 25px;
-                    padding-right: 25px">
-                        <div style="height: 20px;"></div>
-                        <div style="display: grid; grid-template-columns: repeat(100, 1fr);">    
-
-                            <div style="grid-column: span 50;">
-                                <div style="height: 30px;"> THIS IS <br> A PICTURE </div>
-                            </div>
-                            <div style="grid-column: span 50; font-size: 2rem;">
-                                {{ remaining_distance_to_next_action }} km
+                    <div style="grid-column: span 6;">
+                        <!--Geschwindigkeit-->
+                        <div id="outer-circle">
+                            <div id="inner-circle">    
+                                <b> {{ allowed_speed }} </b>          
                             </div>
                         </div>
-                        <div style="height: 50px;"></div>
-                            
+                    </div>
+                    <div style="grid-column: span 4;">
+                        <!--name of steet-->
+                        <div style="height: 335px;"></div>
+                        <div style="background-color: #000000; 
+                        opacity: 0.4;
+                        border-radius: 20px;
+                        font-size: 1.2rem;
+                        height: 40px;
+                        line-height: 40px;
+                        width: 200px;
+                        text-align: center;">
+                            {{ name_of_street }}
+                        </div>
+
+                    </div>
+                    <div style="grid-column: span 30;">
+                        <!--empty-->
+                    </div>
+                    <div style="grid-column: span 25;">
+                        <!--rechte Box; Original: Opacity = 0.5; aber ist etwas zu schwach-->
                         <div>
-                            {{ name_of_action }}
+                            <div style="background-color: #14223F; 
+                            opacity: 0.75;
+                            border-top-left-radius: 20px;
+                            border-bottom-left-radius: 20px;
+                            font-size: 1.2rem;
+                            height: 175px;
+                            width: 275px;
+                            padding-left: 25px;
+                            padding-right: 25px">
+                                <div style="height: 20px;"></div>
+                                <div style="display: grid; grid-template-columns: repeat(100, 1fr);">    
+
+                                    <div style="grid-column: span 50;">
+                                        <div style="height: 30px;"> THIS IS <br> A PICTURE </div>
+                                    </div>
+                                    <div style="grid-column: span 50; font-size: 2rem;">
+                                        {{ remaining_distance_to_next_action }} km
+                                    </div>
+                                </div>
+                                <div style="height: 50px;"></div>
+                                    
+                                <div>
+                                    {{ name_of_action }}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 40px;"></div> 
+
+                        <!--todo hier nochmal aufteilen für den Kompass etc.-->
+                        <!--Kompass: https://github.com/lamplightdev/compass-->
+                        
+                        <div class="container">
+                            HIER DER COMPASS TODO
+
                         </div>
                     </div>
                 </div>
-                <div style="height: 40px;"></div> 
-
-                <!--todo hier nochmal aufteilen für den Kompass etc.-->
-                <!--Kompass: https://github.com/lamplightdev/compass-->
-                
-                <div class="container">
-                    HIER DER COMPASS TODO
-
-                </div>
-                <script src="../js/compass.js"></script>
-
             </div>
+
+            <!--This is just black and not used!-->
+            <div class="container" style="height: 626px; width: 1062px; background-color: black;"> <!--1024-398=626-->
+            </div>
+
         </div>
+
     </div>
-
-    <!--This is just black and not used!-->
-    <div class="container" style="height: 626px; width: 1062px; background-color: black;"> <!--1024-398=626-->
-    </div>
-
-</div>
-
-</div>
-        
+    <script src="../leaflet/leaflet.js"></script>
+    <script src="../compass/leaflet-compass.js"></script>
+    
 </body>
 
 

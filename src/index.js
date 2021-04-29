@@ -19,10 +19,13 @@ import { api } from 'agl-js-api';
 
 import * as leaflet from './leaflet/leaflet';
 import * as map from './js/map'
+// import * as compass from './compass/leaflet-compass'; //this delivers an compile time error...
 
 /* CSS */
 import './styles/app.scss';
 import './leaflet/leaflet.css';
+import './compass/leaflet-compass.css';
+
 
 window.app = app;
 
