@@ -22,80 +22,95 @@
         }
 
         .outside-container { 
-    /*height: 200px;*/
-    position: relative;
-    }
+        /*height: 200px;*/
+        position: relative;
+        }
 
 
 
-    /*Speed Sign
-    todo make red color linear sequence
-    */
+        /*Speed Sign
+        todo make red color linear sequence
+        */
 
 
-    #outer-circle {
-    background: rgb(178,0,0);
-    background: linear-gradient(180deg, rgba(178,0,0,1) 0%, rgba(50,50,50,1) 100%); 
-    border-radius: 50%;
-    height: 80px;
-    width: 80px;
-    position: relative;
+        #outer-circle {
+        background: rgb(178,0,0);
+        background: linear-gradient(180deg, rgba(178,0,0,1) 0%, rgba(50,50,50,1) 100%); 
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        position: relative;
+        /* 
+            Child elements with absolute positioning will be 
+            positioned relative to this div 
+        */
+        }
+        #inner-circle {
+        position: absolute;
+        background: #fff;
+        color: black;
+        border-radius: 50%;
+        width: 60px;
+            height: 60px;
+            padding: 8px;
+            text-align: center;
+            font: 38px Arial, sans-serif;
+        /*
+            Put top edge and left edge in the center
+        */
+        top: 50%;
+        left: 50%;
+        margin: -30px 0px 0px -30px;
+        /* 
+            Offset the position correctly with
+            minus half of the width and minus half of the height 
+        */
+        }
+
     /* 
-        Child elements with absolute positioning will be 
-        positioned relative to this div 
+        Compass
+        TODO
     */
-    }
-    #inner-circle {
-    position: absolute;
-    background: #fff;
-    color: black;
-    border-radius: 50%;
-    width: 60px;
-        height: 60px;
-        padding: 8px;
-        text-align: center;
-        font: 38px Arial, sans-serif;
-    /*
-        Put top edge and left edge in the center
-    */
-    top: 50%;
-    left: 50%;
-    margin: -30px 0px 0px -30px;
+
+
+
     /* 
-        Offset the position correctly with
-        minus half of the width and minus half of the height 
+        Navigation
     */
+
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -100;
+        }
+
+    .no-pd {
+        padding: 0px !important;
     }
 
-   /* 
-    Compass
-   */
+    .no-mg {
+        margin: 0px !important;
+    }
 
-    .compass {
+    .content {
     position: relative;
-    width: 50%;
-    height: 50%;
-    text-align: center;
+    z-index: 100;
     }
 
-  .compass__rose {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-    .compass__rose__dial {
-      height: 100%;
-      width: 100%;
-    }
-
-  .compass__pointer {
-    height: 100%;
+    .wrapper {
+    position: relative;
     width: 100%;
-  }
+    height: 100%;
+    }
 
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
 
 
 
@@ -104,12 +119,27 @@
 
 
 <body>
+
+    <div class="wrapper no-pd no-mg">
+
+        <!--MAP-->
+        <div id="mapid" class="background no-pd no-mg" style="height: 398px; width: 1062px; position: fixed; top: 0; left: 0">
+            <!--INSERT MAP HERE-->
+        </div>
+
+        <!--CONTENT-->
+        <div class="content no-mg">
+
+
     <!--This is the real container for the content-->
-    <div class="container" style="height: 398px; width: 1062px; background-color: rgba(98, 136, 240, 0.289);"> 
+    <div class="container" style="height: 398px; width: 1062px; background-color: transparent;">
         <!--width not 1280 because a part is reserved for the left-side persistent panel: lets say 218px for panel and 1062px for the rest
         according to Documentation:
         Display Dashboard: ca. Auflösung: 1280x398 (16:5) Bildschirm muss aber höher angespielt werden 1280x1024
         -->
+
+
+
 
 
         <!--todo speed sign: https://stackoverflow.com/questions/4861224/how-to-use-css-to-surround-a-number-with-a-circle-->
@@ -237,7 +267,7 @@
                     border-bottom-left-radius: 20px;
                     font-size: 1.2rem;
                     height: 175px;
-                    width: 281px;
+                    width: 275px;
                     padding-left: 25px;
                     padding-right: 25px">
                         <div style="height: 20px;"></div>
@@ -263,34 +293,8 @@
                 <!--Kompass: https://github.com/lamplightdev/compass-->
                 
                 <div class="container">
-                    <div class="compass">
-                    <div id="rose" class="compass__rose">
+                    HIER DER COMPASS TODO
 
-                        <svg class="compass__rose__dial" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
-
-                        <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="none" />
-                        <polyline points="63,9  67,9  65,13" fill="white"/>
-                        <polyline points="121,63  121,67  119,65" fill="white"/>
-                        <polyline points="63,121  67,121  65,119" fill="white"/>
-                        <polyline points="9,63  9,67  11,65" fill="white"/>
-
-                        <text x="65" y="4.2" font-size="15" text-anchor="middle" fill="white">N</text>
-                        <text x="127" y="67" font-size="15" text-anchor="middle" fill="white">E</text>
-                        <text x="65" y="129" font-size="15" text-anchor="middle" fill="white">S</text>
-                        <text x="2.8" y="67" font-size="15" text-anchor="middle" fill="white">W</text>
-
-                        </svg>
-
-                    </div>
-
-                    <svg class="compass__pointer" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
-
-                        <polyline points="60,60  70,60  65,15" fill="#b60000"/>
-                        <polyline points="60,70  70,70  65,115" fill="white"/>
-                        <circle cx="65" cy="65" r="7" stroke="#b60000" stroke-width="7" fill="none" />
-
-                    </svg>
-                    </div>
                 </div>
                 <script src="../js/compass.js"></script>
 
@@ -301,6 +305,10 @@
     <!--This is just black and not used!-->
     <div class="container" style="height: 626px; width: 1062px; background-color: black;"> <!--1024-398=626-->
     </div>
+
+</div>
+
+</div>
         
 </body>
 

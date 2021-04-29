@@ -15,13 +15,22 @@
  */
 /* JS */
 import * as app from './js/app';
-
 import { api } from 'agl-js-api';
+
+import * as leaflet from './leaflet/leaflet';
+import * as map from './js/map'
 
 /* CSS */
 import './styles/app.scss';
+import './leaflet/leaflet.css';
 
 window.app = app;
 
 api.init();
-app.init();
+
+$.ajax({
+    url: app.init(),
+    success: function() {
+        map.init();
+    }
+});
