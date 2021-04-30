@@ -19,7 +19,7 @@ import { api } from 'agl-js-api';
 
 import * as leaflet from './leaflet/leaflet';
 import * as map from './js/map'
-// import * as compass from './compass/leaflet-compass'; //this delivers an compile time error...
+// import * as map from './compass/leaflet-compass'; //this delivers an compile time error TODO...
 
 /* CSS */
 import './styles/app.scss';

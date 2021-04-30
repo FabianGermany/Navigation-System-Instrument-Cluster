@@ -26,6 +26,7 @@ export function init() {
 		// add compass
 		var comp = new L.Control.Compass({autoActive: true, showDigit:true});
 		map.addControl(comp);
+		//TODO: position: 'bottomright'
 	
 	} else {
 		console.log("Konnte div nicht finden");
