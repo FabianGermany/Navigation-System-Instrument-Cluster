@@ -20,11 +20,14 @@ import { api } from 'agl-js-api';
 import * as leaflet from './leaflet/leaflet';
 //import * as compass from './compass/leaflet-compass'; //TODO compile error...brauche ich das?
 import * as map from './js/map'
+import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; // routing machine for drawing route etc.
+
 
 /* CSS */
 import './styles/app.scss'; //import style sheets
 import './leaflet/leaflet.css';
 import './compass/leaflet-compass.css';
+import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css';
 
 
 window.app = app;
