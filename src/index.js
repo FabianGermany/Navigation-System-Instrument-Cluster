@@ -18,11 +18,11 @@ import * as app from './js/app';
 import { api } from 'agl-js-api';
 
 import * as leaflet from './leaflet/leaflet';
+//import * as compass from './compass/leaflet-compass'; //TODO compile error...brauche ich das?
 import * as map from './js/map'
-// import * as map from './compass/leaflet-compass'; //this delivers an compile time error TODO...
 
 /* CSS */
-import './styles/app.scss';
+import './styles/app.scss'; //import style sheets
 import './leaflet/leaflet.css';
 import './compass/leaflet-compass.css';
 
