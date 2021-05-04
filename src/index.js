@@ -18,16 +18,16 @@ import * as app from './js/app';
 import { api } from 'agl-js-api';
 
 import * as leaflet from './leaflet/leaflet';
-//import * as compass from './compass/leaflet-compass'; //TODO compile error...brauche ich das?
 import * as map from './js/map'
 import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; // routing machine for drawing route etc.
+import './compass/leaflet-compass'; //das fuert zu einem  Compile Fehler: Error from chokidar (C:\): Error: EBUSY: resource busy or locked --> node_modules loeschen und npm neu installieren...
 
 
 /* CSS */
 import './styles/app.scss'; //import style sheets
 import './leaflet/leaflet.css';
-import './compass/leaflet-compass.css';
 import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css';
+import './compass/leaflet-compass.css';
 
 
 window.app = app;

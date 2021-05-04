@@ -37,17 +37,10 @@ export function init() {
 
 		// show the scale bar on the lower left corner
 		// L.control.scale().addTo(map);
-		
-		//TODO: position: 'bottomright'
-		//map.addControl( new L.Control.Compass() );
 	
 	} else {
 		console.log("Konnte div nicht finden");
 	}
-
-	// add compass TODO
-	//var comp = new L.Control.Compass({autoActive: true, showDigit:true});
-	// map.addControl(comp);
 
 
 	var route = L.Routing.control({
@@ -88,8 +81,18 @@ export function init() {
 			
 		}).addTo(map);
 		
-		route.hide(); //dont show the instruction box, only the route itself
-		//route.show();
+	route.hide(); //dont show the instruction box, only the route itself
+	//route.show();
+
+
+	// add compass TODO
+	// var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
+	// map.addControl(comp);
+
+	var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+	map.addControl(comp);
+
+	//map.addControl( new L.Control.Compass() );
 		
 
 
