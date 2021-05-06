@@ -39,7 +39,7 @@ export function init() {
 		// L.control.scale().addTo(map);
 
 		// compass
-		var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
+		var comp = new L.Control.Compass({autoActive: true, showDigit:false, position:'bottomright'});
 		map.addControl(comp);
 
 	
