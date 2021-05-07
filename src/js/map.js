@@ -2,15 +2,14 @@ export function init() {
 	var mapcontainer = document.getElementById('mapid');
 	var map;
 
-	var currentLocation = { //Stuttgart
-		lat: 48.783, 
-		lon: 9.192
+	var currentLocation = { //Reutlingen
+		lon: 9.20427,
+		lat: 48.49144
 	}
 
-	var destinationLocation = { //Reutlingen
-		lon: 9.20427,
-		lat: 48.4914
-
+	var destinationLocation = { //Stuttgart
+		lon: 9.192,
+		lat: 48.783
 	}
 
 	var street = "Hauptstraße";
@@ -43,15 +42,15 @@ export function init() {
 
 		// show the scale bar on the lower left corner
 		// L.control.scale().addTo(map);
-
 	
 	} else {
 		console.log("Konnte div nicht finden");
 	}
 
-	// compass
-	var comp = new L.Control.Compass({autoActive: true, showDigit:false, position:'bottomright'});
-	map.addControl(comp);
+	// Compass TODO
+	// var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
+	// map.addControl(comp);
+
 
 
 	var route = L.Routing.control({
@@ -71,8 +70,8 @@ export function init() {
 
 
 			waypoints: [
-				L.latLng(currentLocation.lat, currentLocation.lon), //Stuttgart
-				L.latLng(destinationLocation.lat, destinationLocation.lon) //Reutlingen
+				L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
+				L.latLng(destinationLocation.lat, destinationLocation.lon) //Stuttgart
 			],
 
 			lineOptions: {
@@ -95,6 +94,9 @@ export function init() {
 	route.hide(); //dont show the instruction box, only the route itself
 	//route.show();
 
+
+
+		
 
 
 }
