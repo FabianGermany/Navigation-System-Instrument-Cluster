@@ -19,8 +19,8 @@ import { api } from 'agl-js-api';
 
 import * as leaflet from './leaflet/leaflet';
 import * as map from './js/map'
+import './compass/leaflet-compass'; //if compile error from chokidar (C:\): Error: EBUSY: resource busy or locked --> adapt package.json, re-install npm etc.
 import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; // routing machine for drawing route etc.
-//import './compass/leaflet-compass'; //if compile error from chokidar (C:\): Error: EBUSY: resource busy or locked --> adapt package.json, re-install npm etc.
 
 /* CSS */
 import './styles/app.scss'; //import style sheets

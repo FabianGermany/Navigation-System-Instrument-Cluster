@@ -60,8 +60,8 @@ export function init() {
 	}
 
 	// Compass TODO
-	// var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
-	// map.addControl(comp);
+	var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
+	map.addControl(comp);
 
 
 
