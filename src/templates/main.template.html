@@ -56,8 +56,8 @@
                                 <div style="height: 8px;"></div>
                                 <div class="outside-container" style="">
                                     <div class="">
-                                        <span style="font-size: 2rem; font-weight: bold">
-                                            {{ ETA }}
+                                        <span style="font-size: 2rem; font-weight: bold" id="ETA">
+                                            <!--{{ ETA }}-->
                                         </span>
                                     </div>
                                 </div>
@@ -77,8 +77,8 @@
                                 <div style="height: 8px;"></div>
                                 <div class="outside-container" style="">
                                     <div class="">
-                                        <span style="font-size: 2rem; font-weight: bold">
-                                            {{ remaining_duration }}
+                                        <span style="font-size: 2rem; font-weight: bold" id="remaining_duration">
+                                            <!--{{ remaining_duration }}-->
                                         </span>
                                     </div>
                                 </div>
@@ -98,8 +98,8 @@
                                 <div style="height: 8px;"></div>
                                 <div class="outside-container" style="">
                                     <div class="">
-                                        <span style="font-size: 2rem; font-weight: bold">
-                                            {{ distance }} km
+                                        <span style="font-size: 2rem; font-weight: bold" id="distance">
+                                            <!--{{ distance }} km-->
                                         </span>
                                     </div>
                                 </div>
@@ -125,7 +125,9 @@
                         <!--Geschwindigkeit-->
                         <div id="outer-circle">
                             <div id="inner-circle">    
-                                <b> {{ allowed_speed }} </b>          
+                                <b>
+                                    <span id="allowed_speed"></span>
+                                </b>          
                             </div>
                         </div>
                     </div>
@@ -139,8 +141,8 @@
                         height: 40px;
                         line-height: 40px;
                         width: 200px;
-                        text-align: center;">
-                            {{ name_of_street }}
+                        text-align: center;">                           
+                            <span id="name_of_street"></span>
                         </div>
 
                     </div>
@@ -165,14 +167,15 @@
                                     <div style="grid-column: span 50;">
                                         <div style="height: 30px;"> THIS IS <br> A PICTURE </div>
                                     </div>
-                                    <div style="grid-column: span 50; font-size: 2rem;">
-                                        {{ remaining_distance_to_next_action }} km
+                                    <div style="grid-column: span 50; font-size: 2rem;">                                      
+                                        <span id="remaining_distance_to_next_action"></span>
+                                        km
                                     </div>
                                 </div>
                                 <div style="height: 50px;"></div>
                                     
                                 <div>
-                                    {{ name_of_action }}
+                                    <span id="name_of_action"></span>
                                 </div>
                             </div>
                         </div>
