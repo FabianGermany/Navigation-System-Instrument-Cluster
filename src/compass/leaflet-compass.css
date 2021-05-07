@@ -5,9 +5,10 @@
 .leaflet-compass .compass-button {
 
 }
-.leaflet-compass .compass-button.active {
 
+.leaflet-compass .compass-button.active {
 }
+
 .leaflet-compass .compass-icon {
 	height: 100px;
 	width: 100px;
@@ -20,6 +21,3 @@
 
 .leaflet-compass .compass-alert {
 }
-
-
-
