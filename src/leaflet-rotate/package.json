@@ -1,0 +1,56 @@
+{
+  "_from": "leaflet-rotate-map@^0.2.6",
+  "_id": "leaflet-rotate-map@0.2.6",
+  "_inBundle": false,
+  "_integrity": "sha512-RjA8h8SjXNU8ZZEv2iFUdH9mUw1JzyzU+vSnBuhOHuXas2HJzDN/7PakJnyyn7JGeCc8IuRHTlS+bmyrV4NYGw==",
+  "_location": "/leaflet-rotate-map",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "leaflet-rotate-map@^0.2.6",
+    "name": "leaflet-rotate-map",
+    "escapedName": "leaflet-rotate-map",
+    "rawSpec": "^0.2.6",
+    "saveSpec": null,
+    "fetchSpec": "^0.2.6"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/leaflet-rotate-map/-/leaflet-rotate-map-0.2.6.tgz",
+  "_shasum": "98f79f0ccdbfe244fcdc38bddc7b2bebd1928209",
+  "_spec": "leaflet-rotate-map@^0.2.6",
+  "_where": "C:\\Development\\projects\\university\\IoT\\git\\html-db-v5-gitlab\\html5dashboard",
+  "author": {
+    "name": "Roni Karilkar"
+  },
+  "bugs": {
+    "url": "https://github.com/ronikar/Leaflet/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@types/leaflet": "^1.5.17"
+  },
+  "deprecated": false,
+  "description": "Enable to rotate Leaflet map",
+  "homepage": "https://github.com/ronikar/Leaflet#readme",
+  "keywords": [
+    "leaflet",
+    "maps",
+    "rotate"
+  ],
+  "license": "BSD-2-Clause",
+  "main": "leaflet-src.js",
+  "name": "leaflet-rotate-map",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronikar/Leaflet.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "types": "index.d.ts",
+  "version": "0.2.6"
+}

@@ -44,14 +44,18 @@ export function init() {
 
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
-		map = L.map(mapcontainer, {zoomControl: false}).setView(currentLocation, zoom_Level);
+		map = L.map(mapcontainer, {zoomControl: false, rotate: true}).setView(currentLocation, zoom_Level);
 		//rotate package: const map = L.map('map', { rotate: true });
+
 
 		// add the OpenStreetMap tiles; TOOD maybe change to CartoDB tiles
 		L.tileLayer(tileUrl, {
 			maxZoom: 20,
 			attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 		}).addTo(map);
+
+		//auto-rotate map
+		//map.setBearing(30);
 
 		// show the scale bar on the lower left corner
 		// L.control.scale().addTo(map);
@@ -60,9 +64,11 @@ export function init() {
 		console.log("Konnte div nicht finden");
 	}
 
+
 	// Compass TODO
 	var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
 	map.addControl(comp);
+
 
 
 
@@ -106,6 +112,10 @@ export function init() {
 		
 	route.hide(); //dont show the instruction box, only the route itself
 	//route.show();
+
+			
+
+
 
 
 	//Shown data for driver
