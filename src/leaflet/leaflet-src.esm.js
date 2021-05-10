@@ -1,9 +1,9 @@
 /* @preserve
- * Leaflet 1.6.0+Detached: bd88f73e8ddb90eb945a28bc1de9eb07f7386118.bd88f73, a JS library for interactive maps. http://leafletjs.com
- * (c) 2010-2019 Vladimir Agafonkin, (c) 2010-2011 CloudMade
+ * Leaflet 1.7.1+master.0f904a5, a JS library for interactive maps. http://leafletjs.com
+ * (c) 2010-2021 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
 
-var version = "1.6.0";
+var version = "1.7.1+master.0f904a51";
 
 /*
  * @namespace Util
@@ -159,7 +159,7 @@ function getParamString(obj, existingUrl, uppercase) {
 	return ((!existingUrl || existingUrl.indexOf('?') === -1) ? '?' : '&') + params.join('&');
 }
 
-var templateRe = /\{ *([\w_-]+) *\}/g;
+var templateRe = /\{ *([\w_ -]+) *\}/g;
 
 // @function template(str: String, data: Object): String
 // Simple templating facility, accepts a template string of the form `'Hello {a}, {b}'`
@@ -560,7 +560,7 @@ var Events = {
 	},
 
 	// @method fire(type: String, data?: Object, propagate?: Boolean): this
-	// Fires an event of the specified type. You can optionally provide an data
+	// Fires an event of the specified type. You can optionally provide a data
 	// object — the first argument of the listener function will contain its
 	// properties. The event can optionally be propagated to event parents.
 	fire: function (type, data, propagate) {
@@ -2751,7 +2751,7 @@ function disableScrollPropagation(el) {
 }
 
 // @function disableClickPropagation(el: HTMLElement): this
-// Adds `stopPropagation` to the element's `'click'`, `'doubleclick'`,
+// Adds `stopPropagation` to the element's `'click'`, `'dblclick'`,
 // `'mousedown'` and `'touchstart'` events (plus browser variants).
 function disableClickPropagation(el) {
 	on(el, 'mousedown touchstart dblclick', stopPropagation);
@@ -3470,7 +3470,7 @@ var Map = Evented.extend({
 
 	// @method panInside(latlng: LatLng, options?: options): this
 	// Pans the map the minimum amount to make the `latlng` visible. Use
-	// `padding`, `paddingTopLeft` and `paddingTopRight` options to fit
+	// `padding`, `paddingTopLeft` and `paddingBottomRight` options to fit
 	// the display to more restricted bounds, like [`fitBounds`](#map-fitbounds).
 	// If `latlng` is already within the (optionally padded) display bounds,
 	// the map will not be panned.
@@ -3479,35 +3479,19 @@ var Map = Evented.extend({
 
 		var paddingTL = toPoint(options.paddingTopLeft || options.padding || [0, 0]),
 		    paddingBR = toPoint(options.paddingBottomRight || options.padding || [0, 0]),
-		    center = this.getCenter(),
-		    pixelCenter = this.project(center),
+		    pixelCenter = this.project(this.getCenter()),
 		    pixelPoint = this.project(latlng),
 		    pixelBounds = this.getPixelBounds(),
-		    halfPixelBounds = pixelBounds.getSize().divideBy(2),
-		    paddedBounds = toBounds([pixelBounds.min.add(paddingTL), pixelBounds.max.subtract(paddingBR)]);
+		    paddedBounds = toBounds([pixelBounds.min.add(paddingTL), pixelBounds.max.subtract(paddingBR)]),
+		    paddedSize = paddedBounds.getSize();
 
 		if (!paddedBounds.contains(pixelPoint)) {
 			this._enforcingBounds = true;
-			var diff = pixelCenter.subtract(pixelPoint),
-			    newCenter = toPoint(pixelPoint.x + diff.x, pixelPoint.y + diff.y);
-
-			if (pixelPoint.x < paddedBounds.min.x || pixelPoint.x > paddedBounds.max.x) {
-				newCenter.x = pixelCenter.x - diff.x;
-				if (diff.x > 0) {
-					newCenter.x += halfPixelBounds.x - paddingTL.x;
-				} else {
-					newCenter.x -= halfPixelBounds.x - paddingBR.x;
-				}
-			}
-			if (pixelPoint.y < paddedBounds.min.y || pixelPoint.y > paddedBounds.max.y) {
-				newCenter.y = pixelCenter.y - diff.y;
-				if (diff.y > 0) {
-					newCenter.y += halfPixelBounds.y - paddingTL.y;
-				} else {
-					newCenter.y -= halfPixelBounds.y - paddingBR.y;
-				}
-			}
-			this.panTo(this.unproject(newCenter), options);
+			var centerOffset = pixelPoint.subtract(paddedBounds.getCenter());
+			var offset = paddedBounds.extend(pixelPoint).getSize().subtract(paddedSize);
+			pixelCenter.x += centerOffset.x < 0 ? -offset.x : offset.x;
+			pixelCenter.y += centerOffset.y < 0 ? -offset.y : offset.y;
+			this.panTo(this.unproject(pixelCenter), options);
 			this._enforcingBounds = false;
 		}
 		return this;
@@ -4114,11 +4098,11 @@ var Map = Evented.extend({
 		// Pane for `GridLayer`s and `TileLayer`s
 		this.createPane('tilePane');
 		// @pane overlayPane: HTMLElement = 400
-		// Pane for overlay shadows (e.g. `Marker` shadows)
-		this.createPane('shadowPane');
-		// @pane shadowPane: HTMLElement = 500
 		// Pane for vectors (`Path`s, like `Polyline`s and `Polygon`s), `ImageOverlay`s and `VideoOverlay`s
 		this.createPane('overlayPane');
+		// @pane shadowPane: HTMLElement = 500
+		// Pane for overlay shadows (e.g. `Marker` shadows)
+		this.createPane('shadowPane');
 		// @pane markerPane: HTMLElement = 600
 		// Pane for `Icon`s of `Marker`s
 		this.createPane('markerPane');
@@ -4346,7 +4330,7 @@ var Map = Evented.extend({
 
 		var type = e.type;
 
-		if (type === 'mousedown' || type === 'keypress' || type === 'keyup' || type === 'keydown') {
+		if (type === 'mousedown') {
 			// prevents outline when clicking on keyboard-focusable element
 			preventOutline(e.target || e.srcElement);
 		}
@@ -5153,7 +5137,7 @@ var Layers = Control.extend({
 		}
 	},
 
-	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
+	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see https://stackoverflow.com/a/119079)
 	_createRadioElement: function (name, checked) {
 
 		var radioHtml = '<input type="radio" class="leaflet-control-layers-selector" name="' +
@@ -5380,12 +5364,16 @@ var Zoom = Control.extend({
 
 		removeClass(this._zoomInButton, className);
 		removeClass(this._zoomOutButton, className);
+		this._zoomInButton.setAttribute('aria-disabled', 'false');
+		this._zoomOutButton.setAttribute('aria-disabled', 'false');
 
 		if (this._disabled || map._zoom === map.getMinZoom()) {
 			addClass(this._zoomOutButton, className);
+			this._zoomOutButton.setAttribute('aria-disabled', 'true');
 		}
 		if (this._disabled || map._zoom === map.getMaxZoom()) {
 			addClass(this._zoomInButton, className);
+			this._zoomInButton.setAttribute('aria-disabled', 'true');
 		}
 	}
 });
@@ -7050,7 +7038,13 @@ var Icon = Class.extend({
 
 	options: {
 		popupAnchor: [0, 0],
-		tooltipAnchor: [0, 0]
+		tooltipAnchor: [0, 0],
+
+		// @option crossOrigin: Boolean|String = false
+		// Whether the crossOrigin attribute will be added to the tiles.
+		// If a String is provided, all tiles will have their crossOrigin attribute set to the String provided. This is needed if you want to access tile pixel data.
+		// Refer to [CORS Settings](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) for valid String values.
+		crossOrigin: false
 	},
 
 	initialize: function (options) {
@@ -7082,6 +7076,10 @@ var Icon = Class.extend({
 
 		var img = this._createImg(src, oldIcon && oldIcon.tagName === 'IMG' ? oldIcon : null);
 		this._setIconStyles(img, name);
+
+		if (this.options.crossOrigin || this.options.crossOrigin === '') {
+			img.crossOrigin = this.options.crossOrigin === true ? '' : this.options.crossOrigin;
+		}
 
 		return img;
 	},
@@ -9306,7 +9304,7 @@ var VideoOverlay = ImageOverlay.extend({
 
 		// @option keepAspectRatio: Boolean = true
 		// Whether the video will save aspect ratio after the projection.
-		// Relevant for supported browsers. Browser compatibility- https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+		// Relevant for supported browsers. See [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit)
 		keepAspectRatio: true,
 
 		// @option muted: Boolean = false
@@ -9588,6 +9586,8 @@ var DivOverlay = Layer.extend({
 				latlng = layer.getCenter();
 			} else if (layer.getLatLng) {
 				latlng = layer.getLatLng();
+			} else if (layer.getBounds) {
+				latlng = layer.getBounds().getCenter();
 			} else {
 				throw new Error('Unable to get source layer LatLng.');
 			}
@@ -11552,7 +11552,7 @@ function gridLayer(options) {
  * @example
  *
  * ```js
- * L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'}).addTo(map);
+ * L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
  * ```
  *
  * @section URL template
@@ -12573,10 +12573,12 @@ var vmlCreate = (function () {
 			return document.createElement('<lvml:' + name + ' class="lvml">');
 		};
 	} catch (e) {
-		return function (name) {
-			return document.createElement('<' + name + ' xmlns="urn:schemas-microsoft.com:vml" class="lvml">');
-		};
+		// Do not return fn from catch block so `e` can be garbage collected
+		// See https://github.com/Leaflet/Leaflet/pull/7279
 	}
+	return function (name) {
+		return document.createElement('<' + name + ' xmlns="urn:schemas-microsoft.com:vml" class="lvml">');
+	};
 })();
 
 
@@ -13712,10 +13714,12 @@ Map.addInitHook('addHandler', 'scrollWheelZoom', ScrollWheelZoom);
 // @section Interaction Options
 Map.mergeOptions({
 	// @section Touch interaction options
-	// @option tap: Boolean = true
+	// @option tap: Boolean
 	// Enables mobile hacks for supporting instant taps (fixing 200ms click
 	// delay on iOS/Android) and touch holds (fired as `contextmenu` events).
-	tap: true,
+	// This is legacy option, by default enabled in mobile Safari only
+	// (because we still need `contextmenu` simulation for iOS).
+	tap: safari && mobile,
 
 	// @option tapTolerance: Number = 15
 	// The max number of pixels a user can shift his finger during touch
@@ -13828,9 +13832,7 @@ var Tap = Handler.extend({
 // @section Handlers
 // @property tap: Handler
 // Mobile touch hacks (quick tap and touch hold) handler.
-if (touch && (!pointer || safari)) {
-	Map.addInitHook('addHandler', 'tap', Tap);
-}
+Map.addInitHook('addHandler', 'tap', Tap);
 
 /*
  * L.Handler.TouchZoom is used by L.Map to add pinch zoom on supported mobile browsers.

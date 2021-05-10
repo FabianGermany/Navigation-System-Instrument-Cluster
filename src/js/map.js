@@ -45,6 +45,7 @@ export function init() {
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
 		map = L.map(mapcontainer, {zoomControl: false}).setView(currentLocation, zoom_Level);
+		//rotate package: const map = L.map('map', { rotate: true });
 
 		// add the OpenStreetMap tiles; TOOD maybe change to CartoDB tiles
 		L.tileLayer(tileUrl, {
