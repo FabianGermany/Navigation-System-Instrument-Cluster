@@ -48,7 +48,6 @@
     "dependencies": {
         "agl-js-api": "https://github.com/AGL-web-applications/agl-js-api.git#master",
         "bootstrap": "4.4.1",
-        "leaflet": "*",
         "leaflet-rotate-map": "^0.2.6",
         "mustache": "^3.1.0"
     }

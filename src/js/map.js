@@ -44,8 +44,10 @@ export function init() {
 
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
-		map = L.map(mapcontainer, {zoomControl: false, rotate: true}).setView(currentLocation, zoom_Level);
-		//rotate package: const map = L.map('map', { rotate: true });
+		map = L.map(mapcontainer, {zoomControl: false, rotate: true})
+			.setView(currentLocation, zoom_Level)	
+			.setBearing(40); //auto-rotate map TODO
+
 
 
 		// add the OpenStreetMap tiles; TOOD maybe change to CartoDB tiles
@@ -54,8 +56,7 @@ export function init() {
 			attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 		}).addTo(map);
 
-		//auto-rotate map
-		//map.setBearing(30);
+
 
 		// show the scale bar on the lower left corner
 		// L.control.scale().addTo(map);
