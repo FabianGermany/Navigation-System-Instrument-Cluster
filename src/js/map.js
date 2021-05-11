@@ -45,8 +45,8 @@ export function init() {
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
 		map = L.map(mapcontainer, {zoomControl: false, rotate: true})
-			.setView(currentLocation, zoom_Level)	
-			.setBearing(40); //auto-rotate map TODO
+			.setView(currentLocation, zoom_Level);	
+			//.setBearing(40); //auto-rotate map TODO
 
 
 
