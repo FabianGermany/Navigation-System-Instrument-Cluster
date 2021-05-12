@@ -19,9 +19,10 @@ import { api } from 'agl-js-api';
 
 import './leaflet/leaflet'; //also need the original version due to compass etc.
 //import * as leaflet from './leaflet-rotate/leaflet-src';
-import * as map from './js/map'
+import * as map from './js/map';
 //import './compass/leaflet-compass'; //if compile error from chokidar (C:\): Error: EBUSY: resource busy or locked --> adapt package.json, re-install npm etc.
 import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; // routing machine for drawing route etc.
+import './js/rotate-marker';
 
 /* CSS */
 import './styles/app.scss'; //import style sheets

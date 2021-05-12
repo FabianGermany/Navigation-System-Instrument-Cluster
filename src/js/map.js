@@ -65,14 +65,17 @@ export function init() {
 	}
 
 
-	// Compass TODO
+	// Dynamic Compass doesnt work anymore; so we use static one
 	//var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
 	//map.addControl(comp);
 
 
 
-		
-	map.setBearing(180); //auto-rotate map TODO
+	//auto-rotate map
+	var deg = 73;
+	var compass = document.getElementById('compass_static');
+	map.setBearing(deg); // TODO
+	compass.style.transform = 'rotate(' + deg + 'deg)';
 
 
 
