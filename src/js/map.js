@@ -1,4 +1,10 @@
+//import * as lrm from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; //import this because we need the data from there
+import { our_text } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+import { our_image } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+import { our_distance } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+
 export function init() {
+
 
 	/*Variables*/
 
@@ -10,8 +16,10 @@ export function init() {
 
 	var allowed_speedContainer = document.getElementById('allowed_speed');
 	var name_of_streetContainer = document.getElementById('name_of_street');
+
 	var remaining_distance_to_next_actionContainer = document.getElementById('remaining_distance_to_next_action');
 	var name_of_actionContainer = document.getElementById('name_of_action'); 
+	var PictureNavigationContainer = document.getElementById('PictureNavigation');
 
 	var map;
 
@@ -42,6 +50,10 @@ export function init() {
 	//https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 
 
+    var attr = 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
+	//alternatives:
+	//'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
 		map = L.map(mapcontainer, {zoomControl: false, rotate: true})
@@ -52,10 +64,14 @@ export function init() {
 		// add the OpenStreetMap tiles; TOOD maybe change to CartoDB tiles
 		L.tileLayer(tileUrl, {
 			maxZoom: 20,
-			attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+			attribution: attr
 		}).addTo(map);
 
 
+
+		'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
+	//alternatives:
+	//'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 
 		// show the scale bar on the lower left corner
 		// L.control.scale().addTo(map);
@@ -118,8 +134,8 @@ export function init() {
 			
 		}).addTo(map);
 		
-	route.hide(); //dont show the instruction box, only the route itself
-	//route.show();
+	//route.hide(); //dont show the instruction box, only the route itself
+	route.show();
 
 			
 
@@ -151,9 +167,13 @@ export function init() {
 
 		allowed_speedContainer.innerHTML = 50; //TODO woher
 		name_of_streetContainer.innerHTML = "Alteburgstraße"; //TODO woher
-		remaining_distance_to_next_actionContainer.innerHTML = 5.4; //TODO woher
+
 		name_of_actionContainer.innerHTML = "gerade aus"; //TODO woher
+		PictureNavigationContainer.innerHTML = 'bild'//
+		//console.log('Test');
 		
+		remaining_distance_to_next_actionContainer.innerHTML = our_distance; //TODO woher
+
 
 
 	});

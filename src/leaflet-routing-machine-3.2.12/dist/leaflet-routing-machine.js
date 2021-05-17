@@ -1,3 +1,10 @@
+var our_text = "void";
+var our_image;
+var our_distance = "77";
+export { our_text };
+export { our_image };
+export { our_distance };
+
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 function corslite(url, callback, cors) {
     var sent = false;
@@ -16685,7 +16692,7 @@ module.exports = L.Routing = {
 		},
 
 		createStep: function(text, distance, icon, steps) {
-			var row = L.DomUtil.create('tr', '', steps),
+            var row = L.DomUtil.create('tr', '', steps),
 				span,
 				td;
 			td = L.DomUtil.create('td', '', row);
@@ -16859,6 +16866,16 @@ module.exports = L.Routing = {
 				if(instr.index) {
 					this._addRowListeners(step, r.coordinates[instr.index]);
 				}
+
+                if(i==0){
+                    //console.log(text);
+                    //console.log(distance);
+                    //console.log(icon);
+
+                    our_text = text;
+                    our_distance = distance;
+                    our_image = icon;
+                }
 			}
 
 			return container;

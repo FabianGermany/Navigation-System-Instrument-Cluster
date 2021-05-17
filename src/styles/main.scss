@@ -133,3 +133,8 @@ body {
     .leaflet-control-container .leaflet-routing-container-hide {
         display: none !important;
     }
+
+    //this is for debugging
+    .leaflet-routing-alternatives-container {
+        color: rebeccapurple;
+    }
