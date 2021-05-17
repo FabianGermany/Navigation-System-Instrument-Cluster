@@ -1,9 +1,7 @@
-var our_text = "void";
+var our_text = "void instruction";
 var our_image;
-var our_distance = "77";
-export { our_text };
-export { our_image };
-export { our_distance };
+var our_distance = "void km";
+
 
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 function corslite(url, callback, cors) {
@@ -16372,7 +16370,7 @@ module.exports={
 		getIconName: function(instr, i) {
 			switch (instr.type) {
 			case 'Head':
-				if (i === 0) {
+				if (i === 0) { //todo this is responsible for the A logo?
 					return 'depart';
 				}
 				break;
@@ -16856,7 +16854,7 @@ module.exports = L.Routing = {
 
 			container.appendChild(steps);
 
-			for (i = 0; i < r.instructions.length; i++) {
+			for (i = 0; i < 1; i++) { //for (i = 0; i < r.instructions.length; i++) {
 				instr = r.instructions[i];
 				text = this._formatter.formatInstruction(instr, i);
 				distance = this._formatter.formatDistance(instr.distance);
@@ -16867,14 +16865,24 @@ module.exports = L.Routing = {
 					this._addRowListeners(step, r.coordinates[instr.index]);
 				}
 
-                if(i==0){
-                    //console.log(text);
-                    //console.log(distance);
-                    //console.log(icon);
+                if(i==0){ //only the first instruction should be printed
+                    console.log(text);
+                    console.log(distance);
+                    console.log(icon);
 
                     our_text = text;
                     our_distance = distance;
                     our_image = icon;
+
+                    // get_our_text();
+                    // get_our_distance();
+                    // get_our_image();
+
+                    console.log(our_text);
+                    console.log(our_distance);
+                    console.log(our_image);
+
+
                 }
 			}
 
@@ -18657,3 +18665,23 @@ module.exports = L.Routing = {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}]},{},[53]);
+
+
+
+// export function get_our_text(){
+//     return our_text;
+// }
+// export function get_our_image(){
+//     return our_image;
+// }
+// export function get_our_distance(){
+//     return our_distance;
+// }
+
+export { our_text };
+export { our_image };
+export { our_distance };
+// export { get_our_text };
+// export { get_our_image };
+// export { get_our_distance };
+// export {_createItineraryContainer};

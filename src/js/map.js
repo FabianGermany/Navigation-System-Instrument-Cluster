@@ -1,7 +1,9 @@
-//import * as lrm from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; //import this because we need the data from there
+// import * as lrm from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; //import this because we need the data from there
+// import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine';
 import { our_text } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 import { our_image } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 import { our_distance } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+// import { _createItineraryContainer } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 
 export function init() {
 
@@ -16,10 +18,6 @@ export function init() {
 
 	var allowed_speedContainer = document.getElementById('allowed_speed');
 	var name_of_streetContainer = document.getElementById('name_of_street');
-
-	var remaining_distance_to_next_actionContainer = document.getElementById('remaining_distance_to_next_action');
-	var name_of_actionContainer = document.getElementById('name_of_action'); 
-	var PictureNavigationContainer = document.getElementById('PictureNavigation');
 
 	var map;
 
@@ -85,6 +83,9 @@ export function init() {
 	//var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
 	//map.addControl(comp);
 
+	var remaining_distance_to_next_actionContainer = document.getElementById('remaining_distance_to_next_action');
+	var name_of_actionContainer = document.getElementById('name_of_action'); 
+	var PictureNavigationContainer = document.getElementById('PictureNavigation');
 
 
 	//auto-rotate map
@@ -130,14 +131,17 @@ export function init() {
 			addWaypoints: false,
 			draggableWaypoints: false,
 			fitSelectedRoutes: false,
+			language: 'de',
 			showAlternatives: false,
 			
 		}).addTo(map);
-		
+
+	
+
+
+					
 	//route.hide(); //dont show the instruction box, only the route itself
 	route.show();
-
-			
 
 
 
@@ -168,11 +172,11 @@ export function init() {
 		allowed_speedContainer.innerHTML = 50; //TODO woher
 		name_of_streetContainer.innerHTML = "Alteburgstraße"; //TODO woher
 
-		name_of_actionContainer.innerHTML = "gerade aus"; //TODO woher
-		PictureNavigationContainer.innerHTML = 'bild'//
-		//console.log('Test');
-		
-		remaining_distance_to_next_actionContainer.innerHTML = our_distance; //TODO woher
+
+		name_of_actionContainer.innerHTML = our_text; //TODO //get_our_text(); //
+		PictureNavigationContainer.innerHTML = our_image; //TODO get_our_image(); //
+		remaining_distance_to_next_actionContainer.innerHTML = our_distance; //TODO get_our_distance(); //
+		//console.log(our_distance);
 
 
 
