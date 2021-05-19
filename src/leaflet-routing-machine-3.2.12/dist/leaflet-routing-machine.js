@@ -1,6 +1,6 @@
-var our_text = "void instruction";
-var our_image;
-var our_distance = "void km";
+// var our_text = "void instruction";
+// var our_image;
+// var our_distance = "void km";
 
 
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
@@ -16866,21 +16866,21 @@ module.exports = L.Routing = {
 				}
 
                 if(i==0){ //only the first instruction should be printed
-                    console.log(text);
-                    console.log(distance);
-                    console.log(icon);
+                    // console.log(text);
+                    // console.log(distance);
+                    // console.log(icon);
 
-                    our_text = text;
-                    our_distance = distance;
-                    our_image = icon;
+                    // our_text = text;
+                    // our_distance = distance;
+                    // our_image = icon;
 
                     // get_our_text();
                     // get_our_distance();
                     // get_our_image();
 
-                    console.log(our_text);
-                    console.log(our_distance);
-                    console.log(our_image);
+                    // console.log(our_text);
+                    // console.log(our_distance);
+                    // console.log(our_image);
 
 
                 }
@@ -18678,9 +18678,9 @@ module.exports = L.Routing = {
 //     return our_distance;
 // }
 
-export { our_text };
-export { our_image };
-export { our_distance };
+// export { our_text };
+// export { our_image };
+// export { our_distance };
 // export { get_our_text };
 // export { get_our_image };
 // export { get_our_distance };

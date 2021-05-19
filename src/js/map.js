@@ -1,8 +1,8 @@
 // import * as lrm from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; //import this because we need the data from there
 // import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine';
-import { our_text } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
-import { our_image } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
-import { our_distance } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+// import { our_text } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+// import { our_image } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
+// import { our_distance } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 // import { _createItineraryContainer } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 
 export function init() {
@@ -20,6 +20,9 @@ export function init() {
 	var name_of_streetContainer = document.getElementById('name_of_street');
 
 	var map;
+
+	var coord;
+	var instr;
 
 	var currentLocation = { //Reutlingen
 		lon: 9.20427,
@@ -54,7 +57,7 @@ export function init() {
 
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
-		map = L.map(mapcontainer, {zoomControl: false, rotate: true})
+		map = L.map(mapcontainer, {zoomControl: false, rotate: true}) //rotate true for rotate function
 			.setView(currentLocation, zoom_Level);
 
 
@@ -89,7 +92,7 @@ export function init() {
 
 
 	//auto-rotate map
-	var deg = 73;
+	var deg = 50;
 	var compass = document.getElementById('compass_static');
 	map.setBearing(deg); // TODO
 	compass.style.transform = 'rotate(' + deg + 'deg)';
@@ -143,6 +146,41 @@ export function init() {
 	//route.hide(); //dont show the instruction box, only the route itself
 	route.show();
 
+	var p;
+	var d;
+
+
+
+	route.on('routeselected', function(e) {
+		coord = e.route.coordinates;
+		instr = e.route.instructions;
+		var formatter = new L.Routing.Formatter();
+		p = formatter.formatInstruction(instr[0]);
+		d =  formatter.formatDistance(instr[0]); //todo geht noch nicht
+		//todo icon
+
+		// var g = {
+		// 	"type": "Point",
+		// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
+		// 	};
+		console.log(p)
+		console.log(d);
+		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
+		name_of_actionContainer.innerHTML = p; //our_text; //TODO //get_our_text(); //
+		PictureNavigationContainer.innerHTML = "todo"; //TODO get_our_image(); //
+		remaining_distance_to_next_actionContainer.innerHTML = d; //TODO get_our_distance(); //
+	  });
+	  
+
+
+	// var test = new L.Routing.ItineraryBuilder;
+	// test.createContainer();
+	// test.createStep(p);
+
+
+
+
+
 
 
 
@@ -172,11 +210,6 @@ export function init() {
 		allowed_speedContainer.innerHTML = 50; //TODO woher
 		name_of_streetContainer.innerHTML = "Alteburgstraße"; //TODO woher
 
-
-		name_of_actionContainer.innerHTML = our_text; //TODO //get_our_text(); //
-		PictureNavigationContainer.innerHTML = our_image; //TODO get_our_image(); //
-		remaining_distance_to_next_actionContainer.innerHTML = our_distance; //TODO get_our_distance(); //
-		//console.log(our_distance);
 
 
 
