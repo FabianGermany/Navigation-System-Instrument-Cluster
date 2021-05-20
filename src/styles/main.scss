@@ -138,3 +138,7 @@ body {
     .leaflet-routing-alternatives-container {
         color: rebeccapurple;
     }
+
+    .container, .container-sm, .container-md, .container-lg {
+        max-width: 9000px; /*960px;*/
+    }

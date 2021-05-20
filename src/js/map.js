@@ -146,8 +146,9 @@ export function init() {
 	//route.hide(); //dont show the instruction box, only the route itself
 	route.show();
 
-	var p;
-	var d;
+	var txt; //instruction text
+	var dur; //duration
+	var ic; //icon text
 
 
 
@@ -155,8 +156,8 @@ export function init() {
 		coord = e.route.coordinates;
 		instr = e.route.instructions;
 		var formatter = new L.Routing.Formatter();
-		p = formatter.formatInstruction(instr[0]);
-		d =  formatter.formatDistance(instr[0]); //todo geht noch nicht
+		txt = formatter.formatInstruction(instr[0]);
+		dur =  formatter.formatDistance(instr[0]); //todo geht noch nicht
 		ic =  formatter.getIconName(instr[0]); //todo geht noch nicht
 
 		
@@ -169,9 +170,9 @@ export function init() {
 		// 	};
 		//console.log(p)
 		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
-		name_of_actionContainer.innerHTML = p; //our_text; //TODO //get_our_text(); //
+		name_of_actionContainer.innerHTML = txt; //our_text; //TODO //get_our_text(); //
 		PictureNavigationContainer.innerHTML = ic; //TODO get_our_image(); //
-		remaining_distance_to_next_actionContainer.innerHTML = d; //TODO get_our_distance(); //
+		remaining_distance_to_next_actionContainer.innerHTML = dur; //TODO get_our_distance(); //
 	  });
 	  
 
