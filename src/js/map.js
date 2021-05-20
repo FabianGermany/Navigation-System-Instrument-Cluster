@@ -157,17 +157,20 @@ export function init() {
 		var formatter = new L.Routing.Formatter();
 		p = formatter.formatInstruction(instr[0]);
 		d =  formatter.formatDistance(instr[0]); //todo geht noch nicht
+		ic =  formatter.getIconName(instr[0]); //todo geht noch nicht
+
+		
+
 		//todo icon
 
 		// var g = {
 		// 	"type": "Point",
 		// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
 		// 	};
-		console.log(p)
-		console.log(d);
+		//console.log(p)
 		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
 		name_of_actionContainer.innerHTML = p; //our_text; //TODO //get_our_text(); //
-		PictureNavigationContainer.innerHTML = "todo"; //TODO get_our_image(); //
+		PictureNavigationContainer.innerHTML = ic; //TODO get_our_image(); //
 		remaining_distance_to_next_actionContainer.innerHTML = d; //TODO get_our_distance(); //
 	  });
 	  
@@ -258,6 +261,7 @@ function getDate(hours, minutes, seconds) {
 	var h = date.getHours();
 	var m = date.getMinutes();
 	var s = date.getSeconds();
+	var res = "";
 
 	h = h + hours;
 	m = m + minutes;
@@ -274,6 +278,12 @@ function getDate(hours, minutes, seconds) {
 			m = m - 60;
 		}
 	}
-	return(h + ":" + m + " Uhr");
 
+	if (m < 10) {
+	 	res = h + ":0" + m + " Uhr";
+	} else {
+		res = h + ":" + m + " Uhr";
+	}
+
+	return res;
 }
