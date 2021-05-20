@@ -37,12 +37,22 @@ export function init() {
 	var zoom_Level = 19
 
 	// custom marker-icon
-	var marker =  new L.icon({
+	var startIcon = new L.icon({
 		iconUrl: '../images/marker.png',
-		iconSize: [60,60],
-		iconAnchor: [0,37],
+
+		iconSize: [60, 60],
+		iconAnchor: [0, 37],
 		popupAnchor: [-3, -76]
 	});
+	var destinationIcon = new L.icon({
+		iconUrl: '../images/destination.png',
+
+		iconSize: [62, 62],
+		iconAnchor: [14, 62],
+	});
+
+	var startMarker, destinationMarker;
+
 
 	var tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png';
 	//alternatives: 
@@ -99,43 +109,54 @@ export function init() {
 
 
 
-
+	//Routing service
 	var route = L.Routing.control({
-
-			createMarker: function(i, wp, nWps) {
-				if (i === 0 || i === nWps - 1) {
-					var startMarker = L.marker(wp.latLng, {
-						icon: marker
-					});
-					return startMarker;
-				} else {
-				return L.marker(wp.latLng, {
-					icon: marker
+		waypoints: [
+			L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
+			L.latLng(destinationLocation.lat, destinationLocation.lon) //Stuttgart
+		],
+		createMarker: function(i, wp, nWps) {
+			if (i === 0) {
+				startMarker = L.marker(wp.latLng, {
+					draggable: false,
+					bounceOnAdd: true,
+					bounceOnAddOptions: {
+						duration: 1000,
+						height: 800,
+						function() {	
+							(bindPopup(popup).openOn(map))
+						}
+					},
+					icon: startIcon,
 				});
-				}
-			},
+				return startMarker;
+			}
+			else if (i === 0 || i === nWps - 1) {
+				destinationMarker = L.marker(wp.latLng, {
+					icon: destinationIcon,
+				});
+				return destinationMarker;
+			} else {
+				return null;
+			}
+		},
 
 
-			waypoints: [
-				L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
-				L.latLng(destinationLocation.lat, destinationLocation.lon) //Stuttgart
-			],
+		lineOptions: {
+			styles: [
+			{
+				color: '#00A4E1',
+				//opacity: 1,
+				weight: 11
+			}
+			]
+		},
 
-			lineOptions: {
-				styles: [
-				{
-					color: '#00A4E1',
-					//opacity: 1,
-					weight: 11
-				}
-				]
-			},
-
-			addWaypoints: false,
-			draggableWaypoints: false,
-			fitSelectedRoutes: false,
-			language: 'de',
-			showAlternatives: false,
+		addWaypoints: false,
+		draggableWaypoints: false,
+		fitSelectedRoutes: false,
+		language: 'de',
+		showAlternatives: false,
 			
 		}).addTo(map);
 
