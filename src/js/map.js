@@ -168,7 +168,7 @@ export function init() {
 	route.show();
 
 	var txt; //instruction text
-	var dur; //duration
+	var dis, dis_formatted; //distance
 	var ic; //icon text
 	var roadName; //name of road
 	var PictureNavigationContainer; //container for icon
@@ -179,11 +179,17 @@ export function init() {
 		coord = e.route.coordinates;
 		instr = e.route.instructions;
 		var formatter = new L.Routing.Formatter();
+
 		txt = formatter.formatInstruction(instr[1]); //choose 1st element, not 0th, because the first one is always "go to XXX street" without icon!
-		dur =  formatter.formatDistance(instr[1]); //todo geht noch nicht
-		ic =  formatter.getIconName(instr[1]); //todo geht noch nicht
+		name_of_actionContainer.innerHTML = txt;
+
+		dis = instr[1].distance;
+		dis_formatted = formatter.formatDistance(dis); //format dis into a better string with unit
+		remaining_distance_to_next_actionContainer.innerHTML = dis_formatted; //TODO get_our_distance(); //
+
 		//roadName = formatter.formatInstruction(instr.road[0]);
-		console.log(ic);
+		ic =  formatter.getIconName(instr[1]);
+
 
 		//first reset icons
 		PictureNavigationContainer.classList.remove("icon-class");
@@ -197,7 +203,7 @@ export function init() {
 		PictureNavigationContainer.classList.remove("icon-bearleft");
 		PictureNavigationContainer.classList.remove("icon-roundabout");
 
-		//load suitable icon
+		//load suitable icon and send CAN signal for LED stuff
 		if (ic == 'continue'){		 	
 			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
@@ -248,14 +254,8 @@ export function init() {
 			console.log("error");
 		}
 
+		//calculate distance
 
-
-
-
-
-		
-
-		//todo icon
 
 		// var g = {
 		// 	"type": "Point",
@@ -263,9 +263,7 @@ export function init() {
 		// 	};
 		//console.log(p)
 		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
-		name_of_actionContainer.innerHTML = txt; //our_text; //TODO //get_our_text(); //
-		//PictureNavigationContainer.innerHTML = ic; //TODO get_our_image(); //
-		remaining_distance_to_next_actionContainer.innerHTML = dur; //TODO get_our_distance(); //
+
 	  });
 	  
 
@@ -304,8 +302,8 @@ export function init() {
 		//setup time of arrival
 		ETAContainer.innerHTML = getDate(totalTime.hours, totalTime.minutes, totalTime.seconds);
 
-		allowed_speedContainer.innerHTML = 50; //TODO woher
-		name_of_streetContainer.innerHTML = "Alteburgstraße"; //TODO woher
+		allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
+		name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
 
 
 
