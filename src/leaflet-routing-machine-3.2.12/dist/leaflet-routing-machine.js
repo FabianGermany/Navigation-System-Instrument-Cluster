@@ -16408,7 +16408,7 @@ module.exports={
 		},
 
 		_getInstructionTemplate: function(instr, i) {
-			var type = instr.type === 'Straight' ? (i === 0 ? 'Head' : 'Continue') : instr.type,
+			var type = instr.type === 'Straight' ? (i === 0 ? 'Head' : 'Continue') : instr.type, //todo change head here to something else..
 				strings = this._localization.localize(['instructions', type]);
 
 			if (!strings) {

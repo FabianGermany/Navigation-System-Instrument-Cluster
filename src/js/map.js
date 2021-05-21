@@ -41,7 +41,7 @@ export function init() {
 		iconUrl: '../images/marker.png',
 
 		iconSize: [60, 60],
-		iconAnchor: [0, 37],
+		iconAnchor: [30, 30],
 		popupAnchor: [-3, -76]
 	});
 	var destinationIcon = new L.icon({
@@ -170,16 +170,88 @@ export function init() {
 	var txt; //instruction text
 	var dur; //duration
 	var ic; //icon text
+	var roadName; //name of road
+	var PictureNavigationContainer; //container for icon
 
 
-
+	//show routing stuff like instruction text, icon and meter amount
 	route.on('routeselected', function(e) {
 		coord = e.route.coordinates;
 		instr = e.route.instructions;
 		var formatter = new L.Routing.Formatter();
-		txt = formatter.formatInstruction(instr[0]);
-		dur =  formatter.formatDistance(instr[0]); //todo geht noch nicht
-		ic =  formatter.getIconName(instr[0]); //todo geht noch nicht
+		txt = formatter.formatInstruction(instr[1]); //choose 1st element, not 0th, because the first one is always "go to XXX street" without icon!
+		dur =  formatter.formatDistance(instr[1]); //todo geht noch nicht
+		ic =  formatter.getIconName(instr[1]); //todo geht noch nicht
+		//roadName = formatter.formatInstruction(instr.road[0]);
+		console.log(ic);
+
+		//first reset icons
+		PictureNavigationContainer.classList.remove("icon-class");
+		PictureNavigationContainer.classList.remove("icon-continue");
+		PictureNavigationContainer.classList.remove("icon-sharpright");
+		PictureNavigationContainer.classList.remove("icon-turnright");
+		PictureNavigationContainer.classList.remove("icon-bearright");
+		PictureNavigationContainer.classList.remove("icon-uturn");
+		PictureNavigationContainer.classList.remove("icon-sharpleft");
+		PictureNavigationContainer.classList.remove("icon-turnleft");
+		PictureNavigationContainer.classList.remove("icon-bearleft");
+		PictureNavigationContainer.classList.remove("icon-roundabout");
+
+		//load suitable icon
+		if (ic == 'continue'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-continue");
+		}
+		else if (ic == 'enter-roundabout'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-roundabout");
+		}
+		else if (ic == 'bear-right'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-bearright");
+		}
+		else if (ic == 'turn-right'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-turnright");
+		}
+		else if (ic == 'sharp-right'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-sharpright");
+		}
+		else if (ic == 'u-turn'){
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+		 	PictureNavigationContainer.classList.add("icon-uturn");
+		}
+		else if (ic == 'sharp-left'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-sharpleft");
+		}
+		else if (ic == 'turn-left'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-turnleft");
+		}
+		else if (ic == 'bear-left'){		 	
+			PictureNavigationContainer = document.getElementById('PictureNavigation');
+			PictureNavigationContainer.classList.add("icon-class");
+			PictureNavigationContainer.classList.add("icon-bearleft");
+		}
+		else // (ic == '....')
+		{
+			console.log("error");
+		}
+
+
+
+
+
 
 		
 
@@ -192,7 +264,7 @@ export function init() {
 		//console.log(p)
 		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
 		name_of_actionContainer.innerHTML = txt; //our_text; //TODO //get_our_text(); //
-		PictureNavigationContainer.innerHTML = ic; //TODO get_our_image(); //
+		//PictureNavigationContainer.innerHTML = ic; //TODO get_our_image(); //
 		remaining_distance_to_next_actionContainer.innerHTML = dur; //TODO get_our_distance(); //
 	  });
 	  

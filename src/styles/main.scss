@@ -142,3 +142,69 @@ body {
     .container, .container-sm, .container-md, .container-lg {
         max-width: 9000px; /*960px;*/
     }
+
+
+
+    //this is for showing the image
+    // .icon-class {
+    //     -webkit-background-size: 240px 20px;
+    //     background-size: 240px 20px;
+    //     background-repeat: no-repeat;
+    //     margin: 0;
+    //     content: '';
+    //     display: inline-block;
+    //     vertical-align: top;
+    //     width: 20px;
+    //     height: 20px;
+    //     background-position: 0 0;
+    // }
+
+    .icon-class {
+        // -webkit-background-size: 300px 300px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        // margin: 0;
+        content: '';
+        display: inline-block;
+        // vertical-align: top;
+        width: 70px;
+        height: 70px;
+        //background-color: red;
+        // background-position: 0 0;
+    }
+
+    .icon-continue {
+        background-image: url('../../src/images/continue.png');
+    }
+
+    .icon-sharpright {
+        background-image: url('../../src/images/r-sharp.png');
+    }
+
+    .icon-turnright {
+        background-image: url('../../src/images/r.png');
+    }
+
+    .icon-bearright {
+        background-image: url('../../src/images/r-bear.png');
+    }
+
+    .icon-uturn {
+        background-image: url('../../src/images/uturn.png');
+    }
+
+    .icon-sharpleft {
+        background-image: url('../../src/images/l-sharp.png');
+    }
+
+    .icon-turnleft {
+        background-image: url('../../src/images/l.png');
+    }
+
+    .icon-bearleft {
+        background-image: url('../../src/images/l-bear.png');
+    }
+
+    .icon-roundabout {
+        background-image: url('../../src/images/roundabout.png');
+    }
