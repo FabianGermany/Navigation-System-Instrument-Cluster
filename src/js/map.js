@@ -21,8 +21,12 @@ export function init() {
 
 	var map;
 
+	var deg;
+	var compass = document.getElementById('compass_static');
+
 	var coord;
 	var instr;
+	var nextStepCoords = null;
 
 	var currentLocation = { //Reutlingen
 		lon: 9.20427,
@@ -101,14 +105,6 @@ export function init() {
 	var PictureNavigationContainer = document.getElementById('PictureNavigation');
 
 
-	//auto-rotate map
-	var deg = 50;
-	var compass = document.getElementById('compass_static');
-	map.setBearing(deg); // TODO
-	compass.style.transform = 'rotate(' + deg + 'deg)';
-
-
-
 	//Routing service
 	var route = L.Routing.control({
 		waypoints: [
@@ -164,8 +160,8 @@ export function init() {
 
 
 					
-	//route.hide(); //dont show the instruction box, only the route itself
-	route.show();
+	route.hide(); //dont show the instruction box, only the route itself
+	//route.show();
 
 	var txt; //instruction text
 	var dis, dis_formatted; //distance
@@ -178,7 +174,20 @@ export function init() {
 	route.on('routeselected', function(e) {
 		coord = e.route.coordinates;
 		instr = e.route.instructions;
+		nextStepCoords = getNextStepCoords(instr, coord);
 		var formatter = new L.Routing.Formatter();
+
+		deg = getAngle(currentLocation, nextStepCoords);
+
+		var testMarker = new L.marker(nextStepCoords, {icon: startIcon}).addTo(map);
+		testMarker.setOpacity(0);
+		startMarker.setLatLng(currentLocation);
+
+		//auto-rotate map
+		map.setBearing(360 - deg);
+		compass.style.transform = 'rotate(' + (360 - deg) + 'deg)';
+
+		
 
 		txt = formatter.formatInstruction(instr[1]); //choose 1st element, not 0th, because the first one is always "go to XXX street" without icon!
 		name_of_actionContainer.innerHTML = txt;
@@ -320,6 +329,83 @@ export function init() {
 	
 	
 
+}
+
+
+
+function getInstrGeoJson(instr,allCoords) {
+	var formatter = new L.Routing.Formatter();
+	var instrPts = {
+		type: "FeatureCollection",
+		features: []
+	};
+	for (var i = 0; i < instr.length; ++i) {
+		var g = {
+			"type": "Point",
+			"coordinates": [allCoords[instr[i].index].lng, allCoords[instr[i].index].lat]
+		  };
+		var p = {
+			"instruction": formatter.formatInstruction(instr[i])
+		  };
+		instrPts.features.push({
+			"geometry": g,
+			"type": "Feature",
+			"properties": p
+		  });
+	}
+	console.log(instrPts);
+
+	return instrPts;
+}
+
+function getNextStepCoords(instr, allCoords) {
+	for (var i = 2; i <= 2; ++i) {
+		var res = {
+			lon : allCoords[instr[i].index].lng,
+			lat : allCoords[instr[i].index].lat
+		};
+	};
+
+	return res;
+}
+
+
+
+
+function getAngle(A, B){
+	var angle = null;
+	var latA = A.lat;
+	var lonA = A.lon;
+	var latB = B.lat;
+	var lonB = B.lon;
+
+	// 注意经度或者纬度相等 (when longitude or latitude is equal)
+	if(lonA == lonB && latA>latB ){
+		angle = Math.PI;
+	}
+	else if(lonA == lonB && latA < latB ){
+		angle = 0	;
+	}
+	else if(lonA > lonB && latA == latB ){
+		angle = -(Math.PI/2);
+	}
+	else if(lonA < lonB && latA == latB ){
+		angle = Math.PI/2	;
+	}
+
+	// 注意经度或者纬度都不相等 (Longitude and latitude are not equal)
+	else{
+		var x1 = A.lat*Math.pow(10,12);
+		var x2 = B.lat*Math.pow(10,12);
+		var y1 = A.lon*Math.pow(10,12);
+		var y2 = B.lon*Math.pow(10,12);
+		angle = Math.atan2(y2-y1,x2-x1)
+	}
+
+	angle = angle / (2 * Math.PI) * 360;
+	// angle = 360 - angle;
+
+	return angle;
 }
 
 

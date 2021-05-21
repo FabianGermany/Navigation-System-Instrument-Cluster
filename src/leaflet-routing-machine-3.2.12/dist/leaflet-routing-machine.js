@@ -16854,8 +16854,8 @@ module.exports = L.Routing = {
 
 			container.appendChild(steps);
 
-			for (i = 0; i < 1; i++) { //for (i = 0; i < r.instructions.length; i++) {
-				instr = r.instructions[i];
+            for (i = 0; i < r.instructions.length; i++) {
+                instr = r.instructions[i];
 				text = this._formatter.formatInstruction(instr, i);
 				distance = this._formatter.formatDistance(instr.distance);
 				icon = this._formatter.getIconName(instr, i);
