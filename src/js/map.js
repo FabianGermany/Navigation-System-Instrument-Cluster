@@ -157,8 +157,6 @@ export function init() {
 		}).addTo(map);
 
 	
-
-
 					
 	route.hide(); //dont show the instruction box, only the route itself
 	//route.show();
@@ -187,8 +185,6 @@ export function init() {
 		map.setBearing(360 - deg);
 		compass.style.transform = 'rotate(' + (360 - deg) + 'deg)';
 
-		
-
 		txt = formatter.formatInstruction(instr[1]); //choose 1st element, not 0th, because the first one is always "go to XXX street" without icon!
 		name_of_actionContainer.innerHTML = txt;
 
@@ -198,7 +194,6 @@ export function init() {
 
 		//roadName = formatter.formatInstruction(instr.road[0]);
 		ic =  formatter.getIconName(instr[1]);
-
 
 		//first reset icons
 		PictureNavigationContainer.classList.remove("icon-class");
@@ -265,7 +260,6 @@ export function init() {
 
 		//calculate distance
 
-
 		// var g = {
 		// 	"type": "Point",
 		// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
@@ -275,15 +269,6 @@ export function init() {
 
 	  });
 	  
-
-
-	// var test = new L.Routing.ItineraryBuilder;
-	// test.createContainer();
-	// test.createStep(p);
-
-
-
-
 
 
 
@@ -313,10 +298,6 @@ export function init() {
 
 		allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
 		name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
-
-
-
-
 	});
 
 
@@ -327,11 +308,14 @@ export function init() {
 	// var itineraryDiv = document.getElementById('coming-up-direction');
 	// itineraryDiv.appendChild(routingControlContainer);
 	
-	
 
 }
 
 
+
+
+//other functions
+//***********************************************/
 
 function getInstrGeoJson(instr,allCoords) {
 	var formatter = new L.Routing.Formatter();
@@ -359,16 +343,30 @@ function getInstrGeoJson(instr,allCoords) {
 }
 
 function getNextStepCoords(instr, allCoords) {
-	for (var i = 2; i <= 2; ++i) {
+	var arrayLen = instr.length; //if 16: 0...15
+	if (arrayLen >= 3){
 		var res = {
-			lon : allCoords[instr[i].index].lng,
-			lat : allCoords[instr[i].index].lat
+			lon : allCoords[instr[2].index].lng,
+			lat : allCoords[instr[2].index].lat
 		};
-	};
+	}
+	else if (arrayLen == 2){
+		var res = {
+			lon : allCoords[instr[1].index].lng,
+			lat : allCoords[instr[1].index].lat
+		};
+	}
+	else if (arrayLen == 1){
+		var res = {
+			lon : allCoords[instr[0].index].lng,
+			lat : allCoords[instr[0].index].lat
+		};
+	}
+	else { //no element
+	}
 
 	return res;
 }
-
 
 
 
