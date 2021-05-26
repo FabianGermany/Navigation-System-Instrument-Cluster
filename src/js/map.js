@@ -363,6 +363,7 @@ function getNextStepCoords(instr, allCoords) {
 		};
 	}
 	else { //no element
+		//houston we have a problem
 	}
 
 	return res;
