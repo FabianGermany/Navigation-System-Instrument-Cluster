@@ -21,7 +21,7 @@ var instr;
 var nextStepCoords = null;
 var currentLocation;
 var destinationLocation;
-var zoom_Level = 19;
+var zoom_Level = 19; //19 is good for IC
 var startIcon;
 var destinationIcon;
 var startMarker, destinationMarker;
@@ -112,14 +112,17 @@ export function init() {
 			//alert("Update");
 
 			currentLocation = { //Reutlingen
-				lon: 9.20427 + (Math.random() * 0.1),
-				lat: 48.49144 + (Math.random() * 0.1)
+				lon: (5*currentLocation.lon + 5*destinationLocation.lon)/10, //simulate movement in map
+				lat: (5*currentLocation.lat + 5*destinationLocation.lat)/10
 			}
 		
 			destinationLocation = { //Stuttgart
 				lon: 9.192,
 				lat: 48.783
 			}
+
+			//refresh map
+			refreshMap();
 		
 			//Routing service
 			routingPerformer();
@@ -154,11 +157,19 @@ function launchMap() {
 	} else {
 		console.log("Konnte div nicht finden");
 	}
-	
+}
+
+function refreshMap() {
+	map.setView(currentLocation, zoom_Level);
 }
 
 
+
 function routingPerformer() {
+	if(startMarker) {
+		map.removeLayer(startMarker); //remove previous marker if available
+	}
+
 	route = L.Routing.control({
 		waypoints: [
 			L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
@@ -337,7 +348,7 @@ function iconHandler(ic, container) {
 	}
 	else // (ic == '....')
 	{
-		console.log("error");
+		console.log("either error or we arrived at the destination");
 	}
 }
 
@@ -369,10 +380,16 @@ function getInstrGeoJson(instr,allCoords) {
 
 function getNextStepCoords(instr, allCoords) {
 	var arrayLen = instr.length; //if 16: 0...15
-	if (arrayLen >= 3){
+	if (arrayLen >= 5){
 		var res = {
 			lon : allCoords[instr[2].index].lng,
 			lat : allCoords[instr[2].index].lat
+		};
+	}
+	if (arrayLen >= 3){
+		var res = {
+			lon : allCoords[instr[1].index].lng,
+			lat : allCoords[instr[1].index].lat
 		};
 	}
 	else if (arrayLen == 2){
@@ -380,15 +397,10 @@ function getNextStepCoords(instr, allCoords) {
 			lon : allCoords[instr[1].index].lng,
 			lat : allCoords[instr[1].index].lat
 		};
-	}
-	else if (arrayLen == 1){
-		var res = {
-			lon : allCoords[instr[0].index].lng,
-			lat : allCoords[instr[0].index].lat
-		};
+		console.log("I think we're home now")
 	}
 	else { //no element
-		//houston we have a problem
+		console.log("houston we have a problem")
 	}
 
 	return res;
