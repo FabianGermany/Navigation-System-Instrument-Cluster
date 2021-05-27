@@ -209,47 +209,39 @@ export function init() {
 
 		//load suitable icon and send CAN signal for LED stuff
 		if (ic == 'continue'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-continue");
+			//TODO CAN signal......
 		}
 		else if (ic == 'enter-roundabout'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-roundabout");
 		}
 		else if (ic == 'bear-right'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-bearright");
 		}
 		else if (ic == 'turn-right'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-turnright");
 		}
 		else if (ic == 'sharp-right'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-sharpright");
 		}
 		else if (ic == 'u-turn'){
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 		 	PictureNavigationContainer.classList.add("icon-uturn");
 		}
 		else if (ic == 'sharp-left'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-sharpleft");
 		}
 		else if (ic == 'turn-left'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-turnleft");
 		}
 		else if (ic == 'bear-left'){		 	
-			PictureNavigationContainer = document.getElementById('PictureNavigation');
 			PictureNavigationContainer.classList.add("icon-class");
 			PictureNavigationContainer.classList.add("icon-bearleft");
 		}
@@ -312,6 +304,32 @@ export function init() {
 }
 
 
+
+
+
+export function update() { //update map in endless loop
+	//while (true) {
+		var i = 1;                  //  set your counter to 1
+
+		setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+			console.log("Updating map...");  //  your code here
+			var allowed_speedContainer = document.getElementById('allowed_speed');
+			allowed_speedContainer.innerHTML = 50 + i;
+		  i++;                    //  increment the counter
+		  if (i < 10) {           //  if the counter < 10, call the loop function
+		  }                       //  ..  setTimeout()
+		}, 3000)
+	//}
+ }
+
+
+
+
+
+
+
+
+ 
 
 
 //other functions
