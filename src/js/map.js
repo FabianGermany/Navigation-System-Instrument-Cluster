@@ -5,76 +5,141 @@
 // import { our_distance } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 // import { _createItineraryContainer } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
 
+
+/*Global Variables so they are visible inside multiple functions*/
+var mapcontainer;
+var ETAContainer;
+var remainingdurationContainer;
+var distanceContainer;
+var allowed_speedContainer;
+var name_of_streetContainer;
+var map;
+var deg;
+var compass;
+var coord;
+var instr;
+var nextStepCoords = null;
+var currentLocation;
+var destinationLocation;
+var zoom_Level = 19;
+var startIcon;
+var destinationIcon;
+var startMarker, destinationMarker;
+var tileUrl;
+var attr;
+var remaining_distance_to_next_actionContainer;
+var name_of_actionContainer;
+var PictureNavigationContainer;
+var route;
+var txt; //instruction text
+var dis, dis_formatted; //distance
+var ic; //icon text
+var roadName; //name of road
+var PictureNavigationContainer; //container for icon
+var formatter;
+var testMarker;
+var routes; 
+var summary;
+var totalTime;
+		
+
 export function init() {
 
+	mapcontainer = document.getElementById('mapid');
+	ETAContainer = document.getElementById('ETA');
+	remainingdurationContainer = document.getElementById('remaining_duration');
+	distanceContainer = document.getElementById('distance');
+	allowed_speedContainer = document.getElementById('allowed_speed');
+	name_of_streetContainer = document.getElementById('name_of_street');
+	compass = document.getElementById('compass_static');
+	remaining_distance_to_next_actionContainer = document.getElementById('remaining_distance_to_next_action');
+	name_of_actionContainer = document.getElementById('name_of_action'); 
+	PictureNavigationContainer = document.getElementById('PictureNavigation');
 
-	/*Variables*/
-
-	var mapcontainer = document.getElementById('mapid');
-
-	var ETAContainer = document.getElementById('ETA');
-	var remainingdurationContainer = document.getElementById('remaining_duration');
-	var distanceContainer = document.getElementById('distance');
-
-	var allowed_speedContainer = document.getElementById('allowed_speed');
-	var name_of_streetContainer = document.getElementById('name_of_street');
-
-	var map;
-
-	var deg;
-	var compass = document.getElementById('compass_static');
-
-	var coord;
-	var instr;
-	var nextStepCoords = null;
-
-	var currentLocation = { //Reutlingen
-		lon: 9.20427,
-		lat: 48.49144
-	}
-
-	var destinationLocation = { //Stuttgart
-		lon: 9.192,
-		lat: 48.783
-	}
-
-	var zoom_Level = 19
-
-	// custom marker-icon
-	var startIcon = new L.icon({
-		iconUrl: '../images/marker.png',
-
-		iconSize: [60, 60],
-		iconAnchor: [30, 30],
-		popupAnchor: [-3, -76]
-	});
-	var destinationIcon = new L.icon({
-		iconUrl: '../images/destination.png',
-
-		iconSize: [62, 62],
-		iconAnchor: [14, 62],
-	});
-
-	var startMarker, destinationMarker;
-
-
-	var tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png';
+	tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png';
 	//alternatives: 
 	//https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png 
 	//https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png
 	//https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 
 
-    var attr = 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
+    attr = 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
 	//alternatives:
 	//'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 
+	// custom marker-icon
+	startIcon = new L.icon({
+		iconUrl: '../images/marker.png',
+
+		iconSize: [60, 60],
+		iconAnchor: [30, 30],
+		popupAnchor: [-3, -76]
+	});
+
+	destinationIcon = new L.icon({
+		iconUrl: '../images/destination.png',
+
+		iconSize: [62, 62],
+		iconAnchor: [14, 62],
+	});
+
+	currentLocation = { //Reutlingen
+		lon: 9.20427,
+		lat: 48.49144
+	}
+
+	destinationLocation = { //Stuttgart
+		lon: 9.192,
+		lat: 48.783
+	}
+
+	//launch map
+	launchMap();
+
+	//Routing service
+	routingPerformer();
+
+}
+
+
+
+ export function update() { //update map in endless loop 
+	//TODO later change to subscription https://github.com/walzert/agl-js-api/blob/master/src/low-can.js
+	//https://git.automotivelinux.org/apps/agl-service-navigation/about/
+
+		var intervalId = setInterval(function() {
+			//allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 50);
+			//alert("Update");
+
+			currentLocation = { //Reutlingen
+				lon: 9.20427 + (Math.random() * 0.1),
+				lat: 48.49144 + (Math.random() * 0.1)
+			}
+		
+			destinationLocation = { //Stuttgart
+				lon: 9.192,
+				lat: 48.783
+			}
+		
+			//Routing service
+			routingPerformer();
+		
+			console.log("Map update done."); 
+		  }, 6000);
+ }
+
+
+ 
+
+
+//different sub-functions
+//***********************************************/
+
+function launchMap() {
 	// setup map position and zoom (if html div loaded properly)
 	if (mapcontainer) {
 		map = L.map(mapcontainer, {zoomControl: false, rotate: true}) //rotate true for rotate function
 			.setView(currentLocation, zoom_Level);
-
-
 
 		// add the OpenStreetMap tiles; TOOD maybe change to CartoDB tiles
 		L.tileLayer(tileUrl, {
@@ -83,30 +148,18 @@ export function init() {
 		}).addTo(map);
 
 
-
-		'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
-	//alternatives:
-	//'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-
 		// show the scale bar on the lower left corner
 		// L.control.scale().addTo(map);
-	
+
 	} else {
 		console.log("Konnte div nicht finden");
 	}
+	
+}
 
 
-	// Dynamic Compass doesnt work anymore; so we use static one
-	//var comp = new L.Control.Compass({autoActive: true, showDigit:true, position:'bottomright'});
-	//map.addControl(comp);
-
-	var remaining_distance_to_next_actionContainer = document.getElementById('remaining_distance_to_next_action');
-	var name_of_actionContainer = document.getElementById('name_of_action'); 
-	var PictureNavigationContainer = document.getElementById('PictureNavigation');
-
-
-	//Routing service
-	var route = L.Routing.control({
+function routingPerformer() {
+	route = L.Routing.control({
 		waypoints: [
 			L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
 			L.latLng(destinationLocation.lat, destinationLocation.lon) //Stuttgart
@@ -153,19 +206,11 @@ export function init() {
 		fitSelectedRoutes: false,
 		language: 'de',
 		showAlternatives: false,
-			
 		}).addTo(map);
 
-	
-					
+		
 	route.hide(); //dont show the instruction box, only the route itself
 	//route.show();
-
-	var txt; //instruction text
-	var dis, dis_formatted; //distance
-	var ic; //icon text
-	var roadName; //name of road
-	var PictureNavigationContainer; //container for icon
 
 
 	//show routing stuff like instruction text, icon and meter amount
@@ -173,11 +218,11 @@ export function init() {
 		coord = e.route.coordinates;
 		instr = e.route.instructions;
 		nextStepCoords = getNextStepCoords(instr, coord);
-		var formatter = new L.Routing.Formatter();
+		formatter = new L.Routing.Formatter();
 
 		deg = getAngle(currentLocation, nextStepCoords);
 
-		var testMarker = new L.marker(nextStepCoords, {icon: startIcon}).addTo(map);
+		testMarker = new L.marker(nextStepCoords, {icon: startIcon}).addTo(map);
 		testMarker.setOpacity(0);
 		startMarker.setLatLng(currentLocation);
 
@@ -195,60 +240,8 @@ export function init() {
 		//roadName = formatter.formatInstruction(instr.road[0]);
 		ic =  formatter.getIconName(instr[1]);
 
-		//first reset icons
-		PictureNavigationContainer.classList.remove("icon-class");
-		PictureNavigationContainer.classList.remove("icon-continue");
-		PictureNavigationContainer.classList.remove("icon-sharpright");
-		PictureNavigationContainer.classList.remove("icon-turnright");
-		PictureNavigationContainer.classList.remove("icon-bearright");
-		PictureNavigationContainer.classList.remove("icon-uturn");
-		PictureNavigationContainer.classList.remove("icon-sharpleft");
-		PictureNavigationContainer.classList.remove("icon-turnleft");
-		PictureNavigationContainer.classList.remove("icon-bearleft");
-		PictureNavigationContainer.classList.remove("icon-roundabout");
+		iconHandler(ic, PictureNavigationContainer); //icon choice
 
-		//load suitable icon and send CAN signal for LED stuff
-		if (ic == 'continue'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-continue");
-			//TODO CAN signal......
-		}
-		else if (ic == 'enter-roundabout'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-roundabout");
-		}
-		else if (ic == 'bear-right'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-bearright");
-		}
-		else if (ic == 'turn-right'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-turnright");
-		}
-		else if (ic == 'sharp-right'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-sharpright");
-		}
-		else if (ic == 'u-turn'){
-			PictureNavigationContainer.classList.add("icon-class");
-		 	PictureNavigationContainer.classList.add("icon-uturn");
-		}
-		else if (ic == 'sharp-left'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-sharpleft");
-		}
-		else if (ic == 'turn-left'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-turnleft");
-		}
-		else if (ic == 'bear-left'){		 	
-			PictureNavigationContainer.classList.add("icon-class");
-			PictureNavigationContainer.classList.add("icon-bearleft");
-		}
-		else // (ic == '....')
-		{
-			console.log("error");
-		}
 
 		//calculate distance
 
@@ -263,17 +256,11 @@ export function init() {
 	  
 
 
-
-
-	//Shown data for driver
-	//************************* */
-
-
 	//setup arrival time, duration & distance 
 	route.on('routesfound', function(e) {
-		var routes = e.routes;
-		var summary = routes[0].summary;
-		var totalTime = secondsToHm(summary.totalTime);
+		routes = e.routes;
+		summary = routes[0].summary;
+		totalTime = secondsToHm(summary.totalTime);
 		
 		// setup distance
 		if (summary.totalDistance > 1000) {
@@ -291,41 +278,69 @@ export function init() {
 		allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
 		name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
 	});
-
-
-	//map the routing steps to custom div
-	// var routingControlContainer = routing.getContainer();
-	// var controlContainerParent = routingControlContainer.parentNode;
-	// controlContainerParent.removeChild(routingControlContainer);
-	// var itineraryDiv = document.getElementById('coming-up-direction');
-	// itineraryDiv.appendChild(routingControlContainer);
-	
-
 }
 
 
-export function refresh_content() { //update stuff here
-	var allowed_speedContainer = document.getElementById('allowed_speed');
-	allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 10);
+
+
+
+function iconHandler(ic, container) {
+	//first reset icons
+	container.classList.remove("icon-class");
+	container.classList.remove("icon-continue");
+	container.classList.remove("icon-sharpright");
+	container.classList.remove("icon-turnright");
+	container.classList.remove("icon-bearright");
+	container.classList.remove("icon-uturn");
+	container.classList.remove("icon-sharpleft");
+	container.classList.remove("icon-turnleft");
+	container.classList.remove("icon-bearleft");
+	container.classList.remove("icon-roundabout");
+
+	//load suitable icon and send CAN signal for LED stuff
+	if (ic == 'continue'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-continue");
+		//TODO CAN signal......
+	}
+	else if (ic == 'enter-roundabout'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-roundabout");
+	}
+	else if (ic == 'bear-right'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-bearright");
+	}
+	else if (ic == 'turn-right'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-turnright");
+	}
+	else if (ic == 'sharp-right'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-sharpright");
+	}
+	else if (ic == 'u-turn'){
+		container.classList.add("icon-class");
+		container.classList.add("icon-uturn");
+	}
+	else if (ic == 'sharp-left'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-sharpleft");
+	}
+	else if (ic == 'turn-left'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-turnleft");
+	}
+	else if (ic == 'bear-left'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-bearleft");
+	}
+	else // (ic == '....')
+	{
+		console.log("error");
+	}
 }
 
-
- export function update() { //update map in endless loop
-		var intervalId = setInterval(function() {
-			var allowed_speedContainer = document.getElementById('allowed_speed');
-			allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 10);
-			//alert("Update");
-			console.log("Map update done."); 
-			refresh_content();
-		  }, 10000);
- }
-
-
- 
-
-
-//other functions
-//***********************************************/
 
 function getInstrGeoJson(instr,allCoords) {
 	var formatter = new L.Routing.Formatter();
