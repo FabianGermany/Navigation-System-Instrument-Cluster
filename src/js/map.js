@@ -304,29 +304,21 @@ export function init() {
 }
 
 
+export function refresh_content() { //update stuff here
+	var allowed_speedContainer = document.getElementById('allowed_speed');
+	allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 10);
+}
 
 
-
-export function update() { //update map in endless loop
-	//while (true) {
-		var i = 1;                  //  set your counter to 1
-
-		setTimeout(function() {   //  call a 3s setTimeout when the loop is called
-			console.log("Updating map...");  //  your code here
+ export function update() { //update map in endless loop
+		var intervalId = setInterval(function() {
 			var allowed_speedContainer = document.getElementById('allowed_speed');
-			allowed_speedContainer.innerHTML = 50 + i;
-		  i++;                    //  increment the counter
-		  if (i < 10) {           //  if the counter < 10, call the loop function
-		  }                       //  ..  setTimeout()
-		}, 3000)
-	//}
+			allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 10);
+			//alert("Update");
+			console.log("Map update done."); 
+			refresh_content();
+		  }, 10000);
  }
-
-
-
-
-
-
 
 
  

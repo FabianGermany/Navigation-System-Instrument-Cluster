@@ -37,14 +37,6 @@ window.app = app;
 
 api.init();
 
-// function init_and_update(){
-//     $.ajax({
-//         url: map.init(),
-//         success: function() {
-//             map.update();
-//         }
-//     });
-// }
 
 function initStuff(callback) {
     console.log("Doing init of map...");
@@ -68,12 +60,9 @@ function updateStuff() {
     
 }
 
-
-
 $.ajax({
     url: app.init(),
     success: function() {
-        //init_and_update();
         initStuff(updateStuff); //first init, then update using callback
     }
 });
