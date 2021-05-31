@@ -83,12 +83,12 @@ export function init() {
 		iconAnchor: [14, 62],
 	});
 
-	currentLocation = { //Reutlingen
+	currentLocation = { //Reutlingen TODO receive this from other device
 		lon: 9.20427,
 		lat: 48.49144
 	}
 
-	destinationLocation = { //Stuttgart
+	destinationLocation = { //Stuttgart TODO receive this from other device
 		lon: 9.192,
 		lat: 48.783
 	}
@@ -111,12 +111,12 @@ export function init() {
 			//allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 50);
 			//alert("Update");
 
-			currentLocation = { //Reutlingen
+			currentLocation = { //Reutlingen TODO receive this from other device
 				lon: (5*currentLocation.lon + 5*destinationLocation.lon)/10, //simulate movement in map
 				lat: (5*currentLocation.lat + 5*destinationLocation.lat)/10
 			}
 		
-			destinationLocation = { //Stuttgart
+			destinationLocation = { //Stuttgart TODO receive this from other device
 				lon: 9.192,
 				lat: 48.783
 			}
@@ -399,7 +399,7 @@ function getNextStepCoords(instr, allCoords) {
 		};
 		console.log("I think we're home now")
 	}
-	else { //no element
+	else { //1 or no element
 		console.log("houston we have a problem")
 	}
 
