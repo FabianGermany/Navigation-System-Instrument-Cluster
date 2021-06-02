@@ -34,6 +34,7 @@
         "webpack-cli": "^3.2.3",
         "webpack-dev-server": "^3.7.2",
         "zip-webpack-plugin": "^3.0.0",
+        "leaflet-geometryutil": "^0.9.1",
         "grunt": "~0.4.2",
         "grunt-cli": "^1.2.0",
         "grunt-contrib-clean": "~0.5.0",

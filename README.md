@@ -1,12 +1,15 @@
 # About
 University project about creating a navigation system for cars. 
-The software consists of multiple parts, especially https://github.com/FabianGermany/Homescreen-Instrument-Cluster, https://github.com/FabianGermany/Navigation-System-Instrument-Cluster and https://github.com/philipnglr/agl-html5-navigation.
+The navigation system software consists of multiple parts, namely:
+- Persistent left-sided information panel of the Instrument Cluster ("Homescreen"): https://github.com/FabianGermany/Homescreen-Instrument-Cluster
+- Navigation Screen of the Instrument Cluster (right part of the Instrument Cluster): https://github.com/FabianGermany/Navigation-System-Instrument-Cluster
+- Navigation Screen of the Central Console: https://github.com/philipnglr/agl-html5-navigation (not part of the screenshot below)
 
 ![preview](readme_files/preview.png)
 
-The mockup-files created with Figma software can be seen in the mockup folder.
+The mockup-files created with Figma software can be seen in the mockup folder of this project.
 
-How to run easily in a browser:
+How to easily run this part (repository) in a browser:
 - npm install
 - npm run build
 - npm start

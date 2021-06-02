@@ -19,6 +19,8 @@ var compass;
 var coord;
 var instr;
 var nextStepCoords = null;
+var nextStepCoordsLat = null;
+var nextStepCoordsLon = null;
 var currentLocation;
 var destinationLocation;
 var zoom_Level = 19; //19 is good for IC
@@ -111,10 +113,17 @@ export function init() {
 			//allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 50);
 			//alert("Update");
 
+			//simulate movement in map
+			// currentLocation = { //Reutlingen TODO receive this from other device
+			//     lon: (5*currentLocation.lon + 5*destinationLocation.lon)/10,
+			// 	lat: (5*currentLocation.lat + 5*destinationLocation.lat)/10
+			// }
 			currentLocation = { //Reutlingen TODO receive this from other device
-				lon: (5*currentLocation.lon + 5*destinationLocation.lon)/10, //simulate movement in map
-				lat: (5*currentLocation.lat + 5*destinationLocation.lat)/10
+			    lon: nextStepCoordsLon,
+				lat: nextStepCoordsLat
 			}
+			
+			
 		
 			destinationLocation = { //Stuttgart TODO receive this from other device
 				lon: 9.192,
@@ -229,6 +238,8 @@ function routingPerformer() {
 		coord = e.route.coordinates;
 		instr = e.route.instructions;
 		nextStepCoords = getNextStepCoords(instr, coord);
+		nextStepCoordsLat = nextStepCoords.lat;
+		nextStepCoordsLon = nextStepCoords.lon;
 		formatter = new L.Routing.Formatter();
 
 		deg = getAngle(currentLocation, nextStepCoords);
