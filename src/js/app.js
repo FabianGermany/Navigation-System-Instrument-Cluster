@@ -15,12 +15,12 @@ export function show() {
 export function init() {
 
     lowcan.list().then( function( result ) {
-        console.log(result.length);
+        //console.log(result.length);
         for( var i=0;i<result.length; i++) {
             if( result[i].startsWith('messages') ) {
                 (function(event) {
                     lowcan.get(event).then( function( result ) {
-                        console.log(result[0].event, result[0].value);
+                        //console.log(result[0].event, result[0].value);
                     }, function(error){
                         console.error(event, error);
                     });

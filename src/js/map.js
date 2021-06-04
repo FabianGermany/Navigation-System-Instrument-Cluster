@@ -136,7 +136,7 @@ export function init() {
 			//Routing service
 			routingPerformer();
 		
-			console.log("Map update done."); 
+			//console.log("Map update done."); 
 		  }, 6000);
  }
 
@@ -164,7 +164,7 @@ function launchMap() {
 		// L.control.scale().addTo(map);
 
 	} else {
-		console.log("Konnte div nicht finden");
+		//console.log("Konnte div nicht finden");
 	}
 }
 
@@ -271,7 +271,7 @@ function routingPerformer() {
 		// 	"type": "Point",
 		// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
 		// 	};
-		//console.log(p)
+		////console.log(p)
 		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
 
 	  });
@@ -359,7 +359,7 @@ function iconHandler(ic, container) {
 	}
 	else // (ic == '....')
 	{
-		console.log("either error or we arrived at the destination");
+		//console.log("either error or we arrived at the destination");
 	}
 }
 
@@ -384,7 +384,7 @@ function getInstrGeoJson(instr,allCoords) {
 			"properties": p
 		  });
 	}
-	console.log(instrPts);
+	//console.log(instrPts);
 
 	return instrPts;
 }
@@ -408,10 +408,10 @@ function getNextStepCoords(instr, allCoords) {
 			lon : allCoords[instr[1].index].lng,
 			lat : allCoords[instr[1].index].lat
 		};
-		console.log("I think we're home now")
+		//console.log("I think we're home now")
 	}
 	else { //1 or no element
-		console.log("houston we have a problem")
+		//console.log("houston we have a problem")
 	}
 
 	return res;

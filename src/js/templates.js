@@ -11,7 +11,7 @@ export function load(template) {
                 console.error('Error loading template', xhr.status, xhr.statusText);
                 reject(xhr.status);
             } else {
-                console.log(xhr.responseType);
+                //console.log(xhr.responseType);
                 resolve(xhr.responseText);
             }
         };

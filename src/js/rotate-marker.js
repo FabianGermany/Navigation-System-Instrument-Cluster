@@ -60,7 +60,7 @@ L.AngleIcon = L.Icon.extend({
      * @param h height
      */
     drwaImage : function(ctx , img, course, w, h){
-        console.log(img.src)
+        //console.log(img.src)
         img.onload = function(){
             //平移坐标原点
             ctx.translate(40,30);
@@ -69,7 +69,7 @@ L.AngleIcon = L.Icon.extend({
             ctx.translate(-40,-30);
             //画图
             ctx.drawImage(img,w,h);
-            console.log(img.src)
+            //console.log(img.src)
         }
     },
 

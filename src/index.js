@@ -39,11 +39,11 @@ api.init();
 
 
 function initStuff(callback) {
-    console.log("Doing init of map...");
+    //console.log("Doing init of map...");
     $.ajax({
         url: map.init(),
         success: function() {
-            console.log("Map init done.");
+            //console.log("Map init done.");
             callback();
         }
     });
@@ -54,7 +54,7 @@ function updateStuff() {
     $.ajax({
         url: map.update(),
         success: function() {
-            console.log("Map update done."); 
+            //console.log("Map update done."); 
         }
     });
     
