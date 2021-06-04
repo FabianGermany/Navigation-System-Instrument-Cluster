@@ -3,8 +3,8 @@
   <name>DASHBOARD</name>
   <icon src="icon.svg"/>
   <content src="index.html" type="text/html"/>
-  <description>HTML5 Dashboard demo</description>
-  <author>Igalia, S.L.</author>
+  <description>HTML5 Dashboard</description>
+  <author>Fabian Luettel, Hochschule Reutlingen; Igalia, S.L.</author>
   <license>APL 2.0</license>
   <feature name="urn:AGL:widget:required-permission">
     <param name="urn:AGL:permission::public:no-htdocs" value="required" />
