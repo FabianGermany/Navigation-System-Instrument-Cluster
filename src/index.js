@@ -33,6 +33,8 @@ import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css';
 //import './compass/leaflet-compass.css';
 
 
+var navigation_active = true; //TODO this value should be changed according to the Central Display unit via CAN (if the user presses on start or quit)
+
 window.app = app;
 
 api.init();
@@ -60,12 +62,16 @@ function updateStuff() {
     
 }
 
-$.ajax({
-    url: app.init(),
-    success: function() {
-        initStuff(updateStuff); //first init, then update using callback
-    }
-});
+//start the app itself if CAN message implies to start navigation
+if (navigation_active){ //TODO start this every time when the Central Displays tell you to start a new navigation
+    $.ajax({
+        url: app.init(),
+        success: function() {
+            initStuff(updateStuff); //first init, then update using callback
+        }
+    });
+    
+}
 
 
 

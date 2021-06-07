@@ -1,10 +1,5 @@
-// import * as lrm from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'; //import this because we need the data from there
 // import './leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine';
 // import { our_text } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
-// import { our_image } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
-// import { our_distance } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
-// import { _createItineraryContainer } from '../leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine'
-
 
 /*Global Variables so they are visible inside multiple functions*/
 var mapcontainer;
@@ -123,12 +118,6 @@ export function init() {
 			//alert("Update");
 
 			//simulate movement in map
-
-			// currentLocation = { //Reutlingen TODO receive this from other device
-			//     lon: (5*currentLocation.lon + 5*destinationLocation.lon)/10,
-			// 	lat: (5*currentLocation.lat + 5*destinationLocation.lat)/10
-			// }
-
 			currentLocation = { //Reutlingen TODO receive this from other device
 			    lon: nextStepCoordsLon,
 				lat: nextStepCoordsLat
@@ -162,7 +151,6 @@ function removeRouting(routing) {
 }
 
  
-
 
 //different sub-functions
 //***********************************************/
@@ -292,23 +280,12 @@ function routingPerformer() {
 
 			dis = instr[1].distance;
 			dis_formatted = formatter.formatDistance(dis); //format dis into a better string with unit
-			remaining_distance_to_next_actionContainer.innerHTML = dis_formatted; //TODO get_our_distance(); //
+			remaining_distance_to_next_actionContainer.innerHTML = dis_formatted;
 
 			//roadName = formatter.formatInstruction(instr.road[0]);
 			ic =  formatter.getIconName(instr[1]);
 
 			iconHandler(ic, PictureNavigationContainer); //icon choice
-
-
-			//calculate distance
-
-			// var g = {
-			// 	"type": "Point",
-			// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
-			// 	};
-			////console.log(p)
-			//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
-
 		});
 		
 
@@ -332,6 +309,7 @@ function routingPerformer() {
 			//setup time of arrival
 			ETAContainer.innerHTML = getDate(totalTime.hours, totalTime.minutes, totalTime.seconds);
 
+			//further parameters TODO those can be done in further projects
 			allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
 			name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
 		});
@@ -339,8 +317,6 @@ function routingPerformer() {
 		refreshMap(); //to do this to be on the safe side
 	}
 }
-
-
 
 
 
@@ -358,51 +334,52 @@ function iconHandler(ic, container) {
 	container.classList.remove("icon-roundabout");
 
 	//load suitable icon and send CAN signal for LED stuff
-	if (ic == 'continue'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-continue");
-		//TODO CAN signal......
+	switch (ic) {
+		case 'continue':		 	
+			container.classList.add("icon-class");
+			container.classList.add("icon-continue");
+			//TODO CAN signal for LEDs here
+			break;
+		case 'enter-roundabout':
+			container.classList.add("icon-class");
+			container.classList.add("icon-roundabout");
+			break;
+		case 'bear-right':		 	
+			container.classList.add("icon-class");
+			container.classList.add("icon-bearright");
+			break;
+		case 'turn-right':
+			container.classList.add("icon-class");
+			container.classList.add("icon-turnright");
+			break;
+		case 'sharp-right':
+			container.classList.add("icon-class");
+			container.classList.add("icon-sharpright");
+			break;
+		case 'u-turn':
+			container.classList.add("icon-class");
+			container.classList.add("icon-uturn");
+			break;
+		case 'sharp-left':
+			container.classList.add("icon-class");
+			container.classList.add("icon-sharpleft");
+			break;
+		case 'turn-left':
+			container.classList.add("icon-class");
+			container.classList.add("icon-turnleft");
+			break;
+		case 'bear-left':		 	
+			container.classList.add("icon-class");
+			container.classList.add("icon-bearleft");
+			break;
+		case 'arrive':
+			container.classList.add("icon-class");
+			container.classList.add("icon-arrive");
+		default:
+			console.log("Oh, we might have a problem now. Cannot create a logo for this instruction!");
 	}
-	else if (ic == 'enter-roundabout'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-roundabout");
-	}
-	else if (ic == 'bear-right'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-bearright");
-	}
-	else if (ic == 'turn-right'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-turnright");
-	}
-	else if (ic == 'sharp-right'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-sharpright");
-	}
-	else if (ic == 'u-turn'){
-		container.classList.add("icon-class");
-		container.classList.add("icon-uturn");
-	}
-	else if (ic == 'sharp-left'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-sharpleft");
-	}
-	else if (ic == 'turn-left'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-turnleft");
-	}
-	else if (ic == 'bear-left'){		 	
-		container.classList.add("icon-class");
-		container.classList.add("icon-bearleft");
-	}
-	else if (ic == 'arrive'){		 	
-	    container.classList.add("icon-class");
-		container.classList.add("icon-arrive");
-	}
-	else // (ic == '....')
-	{
-		//console.log("either error or we arrived at the destination");
-	}
+
+
 }
 
 
@@ -426,7 +403,6 @@ function getInstrGeoJson(instr,allCoords) {
 			"properties": p
 		  });
 	}
-	//console.log(instrPts);
 
 	return instrPts;
 }
@@ -472,7 +448,7 @@ function getAngle(A, B){
 	var latB = B.lat;
 	var lonB = B.lon;
 
-	// 注意经度或者纬度相等 (when longitude or latitude is equal)
+	// when longitude or latitude is equal
 	if(lonA == lonB && latA>latB ){
 		angle = Math.PI;
 	}
@@ -486,7 +462,7 @@ function getAngle(A, B){
 		angle = Math.PI/2	;
 	}
 
-	// 注意经度或者纬度都不相等 (Longitude and latitude are not equal)
+	// longitude and latitude are not equal
 	else{
 		var x1 = A.lat*Math.pow(10,12);
 		var x2 = B.lat*Math.pow(10,12);
