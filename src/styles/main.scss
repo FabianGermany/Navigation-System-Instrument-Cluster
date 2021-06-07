@@ -208,3 +208,9 @@ body {
     .icon-roundabout {
         background-image: url('../../src/images/roundabout.png');
     }
+
+    .icon-arrive {
+        background: url('../../src/images/destination.png');
+        filter: brightness(0) invert(1);
+        background-repeat: no-repeat;
+    }

@@ -4,6 +4,10 @@ The navigation system software consists of multiple parts, namely:
 - Persistent left-sided information panel of the Instrument Cluster ("Homescreen"): https://github.com/FabianGermany/Homescreen-Instrument-Cluster
 - Navigation Screen of the Instrument Cluster (right part of the Instrument Cluster): https://github.com/FabianGermany/Navigation-System-Instrument-Cluster
 - Navigation Screen of the Central Console: https://github.com/philipnglr/agl-html5-navigation (not part of the screenshot below)
+- LED panel for visualization of navigation instructions: https://github.com/mueller-kai/Arduino_LedCode-for-Driving-Simulator
+- Routing algorithm: https://github.com/SebEckl/agl-service-routing.git
+
+This repository is about the right part of the Instrument Cluster.
 
 ![preview](readme_files/preview.png)
 

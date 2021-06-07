@@ -43,10 +43,12 @@ var testMarker;
 var routes; 
 var summary;
 var totalTime;
+var intervalId = null;
 		
 
 export function init() {
 
+	/*Initialize containers*/
 	mapcontainer = document.getElementById('mapid');
 	ETAContainer = document.getElementById('ETA');
 	remainingdurationContainer = document.getElementById('remaining_duration');
@@ -58,6 +60,7 @@ export function init() {
 	name_of_actionContainer = document.getElementById('name_of_action'); 
 	PictureNavigationContainer = document.getElementById('PictureNavigation');
 
+	/*Choose Tile layer*/
 	tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png';
 	//alternatives: 
 	//https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png 
@@ -69,7 +72,7 @@ export function init() {
 	//alternatives:
 	//'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 
-	// custom marker-icon
+	/*set custom marker-icons*/
 	startIcon = new L.icon({
 		iconUrl: '../images/marker.png',
 
@@ -85,6 +88,7 @@ export function init() {
 		iconAnchor: [14, 62],
 	});
 
+	/*Define locations*/
 	currentLocation = { //Reutlingen TODO receive this from other device
 		lon: 9.20427,
 		lat: 48.49144
@@ -106,25 +110,25 @@ export function init() {
 
 
  export function update() { //update map in endless loop 
-	//TODO later change to subscription https://github.com/walzert/agl-js-api/blob/master/src/low-can.js
-	//https://git.automotivelinux.org/apps/agl-service-navigation/about/
-
-		var intervalId = setInterval(function() {
+	//TODO Future work: don't use timer, but change to CAN subscription https://github.com/walzert/agl-js-api/blob/master/src/low-can.js //https://git.automotivelinux.org/apps/agl-service-navigation/about/
+	//TODO Future work: Listen for updates in the simulator's location; get this value either from the other display device or directly via CAN
+	
+		intervalId = setInterval(function() {
 			//allowed_speedContainer.innerHTML = 50 + Math.floor(Math.random() * 50);
 			//alert("Update");
 
 			//simulate movement in map
+
 			// currentLocation = { //Reutlingen TODO receive this from other device
 			//     lon: (5*currentLocation.lon + 5*destinationLocation.lon)/10,
 			// 	lat: (5*currentLocation.lat + 5*destinationLocation.lat)/10
 			// }
+
 			currentLocation = { //Reutlingen TODO receive this from other device
 			    lon: nextStepCoordsLon,
 				lat: nextStepCoordsLat
 			}
 			
-			
-		
 			destinationLocation = { //Stuttgart TODO receive this from other device
 				lon: 9.192,
 				lat: 48.783
@@ -141,6 +145,12 @@ export function init() {
  }
 
 
+
+ function endUpdate() {
+	clearInterval(intervalId);
+	intervalId = null;
+}
+
  
 
 
@@ -153,7 +163,7 @@ function launchMap() {
 		map = L.map(mapcontainer, {zoomControl: false, rotate: true}) //rotate true for rotate function
 			.setView(currentLocation, zoom_Level);
 
-		// add the OpenStreetMap tiles; TOOD maybe change to CartoDB tiles
+		// add tiles (OpenStreetMap, CartoDB etc.)
 		L.tileLayer(tileUrl, {
 			maxZoom: 20,
 			attribution: attr
@@ -356,6 +366,10 @@ function iconHandler(ic, container) {
 	else if (ic == 'bear-left'){		 	
 		container.classList.add("icon-class");
 		container.classList.add("icon-bearleft");
+	}
+	else if (ic == 'arrive'){		 	
+		container.classList.add("icon-class");
+		container.classList.add("icon-arrive");
 	}
 	else // (ic == '....')
 	{
