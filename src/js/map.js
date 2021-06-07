@@ -99,12 +99,13 @@ export function init() {
 		lat: 48.783
 	}
 
-	//launch map
-	launchMap();
-
-	//Routing service
-	routingPerformer();
-
+	//launch map and then perform the routing service when refresh is done
+	$.ajax({
+		url: launchMap(),
+		success: function() {
+			routingPerformer();
+		}
+	});
 }
 
 
@@ -134,11 +135,14 @@ export function init() {
 				lat: 48.783
 			}
 
-			//refresh map
-			refreshMap();
-		
-			//Routing service
-			routingPerformer();
+			//perform the routing service and then refresh then map based on the routing
+			$.ajax({
+				url: routingPerformer(),
+				success: function() {
+					refreshMap();
+				}
+			});
+
 		
 			//console.log("Map update done."); 
 		  }, 6000);
@@ -149,6 +153,13 @@ export function init() {
  function endUpdate() {
 	clearInterval(intervalId);
 	intervalId = null;
+}
+
+function removeRouting(routing) {
+	if (routing != null) {
+		map.removeControl(routing);
+		routing = null;
+	}
 }
 
  
@@ -180,14 +191,22 @@ function launchMap() {
 
 function refreshMap() {
 	map.setView(currentLocation, zoom_Level);
+	//console.log("refreshMap done");
 }
 
 
 
 function routingPerformer() {
+	 //remove previous marker if available
 	if(startMarker) {
-		map.removeLayer(startMarker); //remove previous marker if available
+		map.removeLayer(startMarker);
 	}
+	if(destinationMarker) {
+		map.removeLayer(destinationMarker);
+	}
+
+	//delete old routing, otherwise if you make a detour, the old one will also stay
+	removeRouting(route);
 
 	route = L.Routing.control({
 		waypoints: [
@@ -310,6 +329,8 @@ function routingPerformer() {
 		allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
 		name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
 	});
+	//console.log("RoutingPerformer done");
+	refreshMap(); //to do this to be on the safe side
 }
 
 
@@ -368,7 +389,7 @@ function iconHandler(ic, container) {
 		container.classList.add("icon-bearleft");
 	}
 	else if (ic == 'arrive'){		 	
-		container.classList.add("icon-class");
+	    container.classList.add("icon-class");
 		container.classList.add("icon-arrive");
 	}
 	else // (ic == '....')
