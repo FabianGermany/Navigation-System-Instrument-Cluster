@@ -44,9 +44,13 @@ var routes;
 var summary;
 var totalTime;
 var intervalId = null;
+var boolRoutingActive = true;
 		
 
 export function init() {
+	//TODO future work: get CAN message to jump into here
+
+	boolRoutingActive = true; //Routing is allowed now
 
 	/*Initialize containers*/
 	mapcontainer = document.getElementById('mapid');
@@ -150,11 +154,6 @@ export function init() {
 
 
 
- function endUpdate() {
-	clearInterval(intervalId);
-	intervalId = null;
-}
-
 function removeRouting(routing) {
 	if (routing != null) {
 		map.removeControl(routing);
@@ -190,147 +189,155 @@ function launchMap() {
 }
 
 function refreshMap() {
-	map.setView(currentLocation, zoom_Level);
+	map.setView(currentLocation, zoom_Level); //recet map to current location
 	//console.log("refreshMap done");
 }
 
 
 
 function routingPerformer() {
-	 //remove previous marker if available
-	if(startMarker) {
-		map.removeLayer(startMarker);
-	}
-	if(destinationMarker) {
-		map.removeLayer(destinationMarker);
+
+	if(boolRoutingActive == false) { //stop do the routing if routing done/not wanted anymore etc.
+		clearInterval(intervalId);
+		intervalId = null;
 	}
 
-	//delete old routing, otherwise if you make a detour, the old one will also stay
-	removeRouting(route);
-
-	route = L.Routing.control({
-		waypoints: [
-			L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
-			L.latLng(destinationLocation.lat, destinationLocation.lon) //Stuttgart
-		],
-		createMarker: function(i, wp, nWps) {
-			if (i === 0) {
-				startMarker = L.marker(wp.latLng, {
-					draggable: false,
-					bounceOnAdd: true,
-					bounceOnAddOptions: {
-						duration: 1000,
-						height: 800,
-						function() {	
-							(bindPopup(popup).openOn(map))
-						}
-					},
-					icon: startIcon,
-				});
-				return startMarker;
-			}
-			else if (i === 0 || i === nWps - 1) {
-				destinationMarker = L.marker(wp.latLng, {
-					icon: destinationIcon,
-				});
-				return destinationMarker;
-			} else {
-				return null;
-			}
-		},
-
-
-		lineOptions: {
-			styles: [
-			{
-				color: '#00A4E1',
-				//opacity: 1,
-				weight: 11
-			}
-			]
-		},
-
-		addWaypoints: false,
-		draggableWaypoints: false,
-		fitSelectedRoutes: false,
-		language: 'de',
-		showAlternatives: false,
-		}).addTo(map);
-
-		
-	route.hide(); //dont show the instruction box, only the route itself
-	//route.show();
-
-
-	//show routing stuff like instruction text, icon and meter amount
-	route.on('routeselected', function(e) {
-		coord = e.route.coordinates;
-		instr = e.route.instructions;
-		nextStepCoords = getNextStepCoords(instr, coord);
-		nextStepCoordsLat = nextStepCoords.lat;
-		nextStepCoordsLon = nextStepCoords.lon;
-		formatter = new L.Routing.Formatter();
-
-		deg = getAngle(currentLocation, nextStepCoords);
-
-		testMarker = new L.marker(nextStepCoords, {icon: startIcon}).addTo(map);
-		testMarker.setOpacity(0);
-		startMarker.setLatLng(currentLocation);
-
-		//auto-rotate map
-		map.setBearing(360 - deg);
-		compass.style.transform = 'rotate(' + (360 - deg) + 'deg)';
-
-		txt = formatter.formatInstruction(instr[1]); //choose 1st element, not 0th, because the first one is always "go to XXX street" without icon!
-		name_of_actionContainer.innerHTML = txt;
-
-		dis = instr[1].distance;
-		dis_formatted = formatter.formatDistance(dis); //format dis into a better string with unit
-		remaining_distance_to_next_actionContainer.innerHTML = dis_formatted; //TODO get_our_distance(); //
-
-		//roadName = formatter.formatInstruction(instr.road[0]);
-		ic =  formatter.getIconName(instr[1]);
-
-		iconHandler(ic, PictureNavigationContainer); //icon choice
-
-
-		//calculate distance
-
-		// var g = {
-		// 	"type": "Point",
-		// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
-		// 	};
-		////console.log(p)
-		//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
-
-	  });
-	  
-
-
-	//setup arrival time, duration & distance 
-	route.on('routesfound', function(e) {
-		routes = e.routes;
-		summary = routes[0].summary;
-		totalTime = secondsToHm(summary.totalTime);
-		
-		// setup distance
-		if (summary.totalDistance > 1000) {
-			distanceContainer.innerHTML = Math.round((summary.totalDistance / 1000) * 10) / 10 + " km";
-		} else {
-			distanceContainer.innerHTML = Math.round(summary.totalDistance) + " m";
+	else { //boolRoutingActive == true		
+		//remove previous marker if available
+		if(startMarker) {
+			map.removeLayer(startMarker);
+		}
+		if(destinationMarker) {
+			map.removeLayer(destinationMarker);
 		}
 
-		//setup duration
-		remainingdurationContainer.innerHTML = formatDuration(totalTime.hours, totalTime.minutes, totalTime.seconds);
+		//delete old routing, otherwise if you make a detour, the old one will also stay
+		removeRouting(route);
 
-		//setup time of arrival
-		ETAContainer.innerHTML = getDate(totalTime.hours, totalTime.minutes, totalTime.seconds);
+		route = L.Routing.control({
+			waypoints: [
+				L.latLng(currentLocation.lat, currentLocation.lon), //Reutlingen
+				L.latLng(destinationLocation.lat, destinationLocation.lon) //Stuttgart
+			],
+			createMarker: function(i, wp, nWps) {
+				if (i === 0) {
+					startMarker = L.marker(wp.latLng, {
+						draggable: false,
+						bounceOnAdd: true,
+						bounceOnAddOptions: {
+							duration: 1000,
+							height: 800,
+							function() {	
+								(bindPopup(popup).openOn(map))
+							}
+						},
+						icon: startIcon,
+					});
+					return startMarker;
+				}
+				else if (i === 0 || i === nWps - 1) {
+					destinationMarker = L.marker(wp.latLng, {
+						icon: destinationIcon,
+					});
+					return destinationMarker;
+				} else {
+					return null;
+				}
+			},
 
-		allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
-		name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
-	});
-	//console.log("RoutingPerformer done");
-	refreshMap(); //to do this to be on the safe side
+
+			lineOptions: {
+				styles: [
+				{
+					color: '#00A4E1',
+					//opacity: 1,
+					weight: 11
+				}
+				]
+			},
+
+			addWaypoints: false,
+			draggableWaypoints: false,
+			fitSelectedRoutes: false,
+			language: 'de',
+			showAlternatives: false,
+			}).addTo(map);
+
+			
+		route.hide(); //dont show the instruction box, only the route itself
+		//route.show();
+
+
+		//show routing stuff like instruction text, icon and meter amount
+		route.on('routeselected', function(e) {
+			coord = e.route.coordinates;
+			instr = e.route.instructions;
+			nextStepCoords = getNextStepCoords(instr, coord);
+			nextStepCoordsLat = nextStepCoords.lat;
+			nextStepCoordsLon = nextStepCoords.lon;
+			formatter = new L.Routing.Formatter();
+
+			deg = getAngle(currentLocation, nextStepCoords);
+
+			testMarker = new L.marker(nextStepCoords, {icon: startIcon}).addTo(map);
+			testMarker.setOpacity(0);
+			startMarker.setLatLng(currentLocation);
+
+			//auto-rotate map
+			map.setBearing(360 - deg);
+			compass.style.transform = 'rotate(' + (360 - deg) + 'deg)';
+
+			txt = formatter.formatInstruction(instr[1]); //choose 1st element, not 0th, because the first one is always "go to XXX street" without icon!
+			name_of_actionContainer.innerHTML = txt;
+
+			dis = instr[1].distance;
+			dis_formatted = formatter.formatDistance(dis); //format dis into a better string with unit
+			remaining_distance_to_next_actionContainer.innerHTML = dis_formatted; //TODO get_our_distance(); //
+
+			//roadName = formatter.formatInstruction(instr.road[0]);
+			ic =  formatter.getIconName(instr[1]);
+
+			iconHandler(ic, PictureNavigationContainer); //icon choice
+
+
+			//calculate distance
+
+			// var g = {
+			// 	"type": "Point",
+			// 	"coordinates": [coord[instr[0].index].lng, coord[instr[0].index].lat]
+			// 	};
+			////console.log(p)
+			//L.geoJson(getInstrGeoJson(instr,coord), {onEachFeature: onEach}).addTo(map);
+
+		});
+		
+
+
+		//setup arrival time, duration & distance 
+		route.on('routesfound', function(e) {
+			routes = e.routes;
+			summary = routes[0].summary;
+			totalTime = secondsToHm(summary.totalTime);
+			
+			// setup distance
+			if (summary.totalDistance > 1000) {
+				distanceContainer.innerHTML = Math.round((summary.totalDistance / 1000) * 10) / 10 + " km";
+			} else {
+				distanceContainer.innerHTML = Math.round(summary.totalDistance) + " m";
+			}
+
+			//setup duration
+			remainingdurationContainer.innerHTML = formatDuration(totalTime.hours, totalTime.minutes, totalTime.seconds);
+
+			//setup time of arrival
+			ETAContainer.innerHTML = getDate(totalTime.hours, totalTime.minutes, totalTime.seconds);
+
+			allowed_speedContainer.innerHTML = 50; //hard to get for free...no suitable API
+			name_of_streetContainer.innerHTML = "Alteburgstraße"; //also too hard for first iteration
+		});
+		//console.log("RoutingPerformer done");
+		refreshMap(); //to do this to be on the safe side
+	}
 }
 
 
@@ -425,6 +432,7 @@ function getInstrGeoJson(instr,allCoords) {
 }
 
 function getNextStepCoords(instr, allCoords) {
+	boolRoutingActive = true;
 	var arrayLen = instr.length; //if 16: 0...15
 	if (arrayLen >= 5){
 		var res = {
@@ -447,6 +455,9 @@ function getNextStepCoords(instr, allCoords) {
 	}
 	else { //1 or no element
 		//console.log("houston we have a problem")
+	}
+	if (arrayLen <= 2) {
+		//boolRoutingActive = false; //this might be a good idea, but cause that the arrival time etc. won't refresh; also the marker disappears
 	}
 
 	return res;
