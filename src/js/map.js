@@ -376,7 +376,7 @@ function iconHandler(ic, container) {
 			container.classList.add("icon-class");
 			container.classList.add("icon-arrive");
 		default:
-			console.log("Oh, we might have a problem now. Cannot create a logo for this instruction!");
+			//console.log("Oh, we might have a problem now. Cannot create a logo for this instruction!");
 	}
 
 
