@@ -433,7 +433,7 @@ function getNextStepCoords(instr, allCoords) {
 		//console.log("houston we have a problem")
 	}
 	if (arrayLen <= 2) {
-		//boolRoutingActive = false; //this might be a good idea, but cause that the arrival time etc. won't refresh; also the marker disappears
+		//boolRoutingActive = false; //this might be a good idea, but cause that the arrival time etc. won't refresh; also the marker disappears; better get this data reliably from Central display
 	}
 
 	return res;

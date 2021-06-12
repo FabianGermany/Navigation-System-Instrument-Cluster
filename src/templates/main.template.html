@@ -112,28 +112,33 @@
                         <!--empty-->
                     </div>
                     <div style="grid-column: span 6;">
-                        <!--Geschwindigkeit--> <!--deactivated-->
-                        <div id="outer-circle">
-                            <div id="inner-circle">    
-                                <b>
-                                    <span id="allowed_speed"></span>
-                                </b>          
+                        <!--Geschwindigkeit--> 
+                        <span style="display: none;"><!--deactivated via display:none; dont comment out, otherwise the map.js will have problems finding the ID-->
+                            <div id="outer-circle">
+                                <div id="inner-circle">    
+                                    <b>
+                                        <span id="allowed_speed"></span>
+                                    </b>          
+                                </div>
                             </div>
-                        </div>
+                        </span>
                     </div>
                     <div style="grid-column: span 4;">
-                        <!--name of steet-->  <!--deactivated-->
-                        <div style="height: 335px;"></div>
-                        <div style="background-color: #000000; 
-                        opacity: 0.4;
-                        border-radius: 20px;
-                        font-size: 1.2rem;
-                        height: 40px;
-                        line-height: 40px;
-                        width: 200px;
-                        text-align: center;">                           
-                            <span id="name_of_street"></span>
-                        </div>
+                        <!--name of steet-->
+                        <span style="display: none;"><!--deactivated via display:none; dont comment out, otherwise the map.js will have problems finding the ID-->
+
+                            <div style="height: 335px;"></div>
+                            <div style="background-color: #000000; 
+                            opacity: 0.4;
+                            border-radius: 20px;
+                            font-size: 1.2rem;
+                            height: 40px;
+                            line-height: 40px;
+                            width: 200px;
+                            text-align: center;">                           
+                                <span id="name_of_street"></span>
+                            </div>
+                        </span>
 
                     </div>
                     <div style="grid-column: span 30;">
