@@ -27,3 +27,7 @@ It's still recommended to run the software in a AGL virtual machine. This proces
 With some commands using SSH you can transfer the wgt-file to the AGL virtual machine. For that see our documentation which is not published here on GitHub. If needed, feel free to get in touch with us.
 
 ![preview](readme_files/preview8.png)
+
+# License
+For License information please also see the license file and the other license files inside the used packages (e.g. inside leaflet-routing-machine folder etc.). We also attribute [OpenStreetMap](https://www.openstreetmap.org/copyright/en).
+
