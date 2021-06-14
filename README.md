@@ -25,3 +25,5 @@ If node.js/npm is not installed, make sure to install a suitable node version su
 
 It's still recommended to run the software in a AGL virtual machine. This process is more complex. For that you will need - apart from the AGL virtual machine - another Linux virtual machine to download the data and generate the wgt-file. 
 With some commands using SSH you can transfer the wgt-file to the AGL virtual machine. For that see our documentation which is not published here on GitHub. If needed, feel free to get in touch with us.
+
+![preview](readme_files/preview8.png)
