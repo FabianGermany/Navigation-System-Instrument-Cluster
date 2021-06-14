@@ -40,6 +40,7 @@ var summary;
 var totalTime;
 var intervalId = null;
 var boolRoutingActive = true;
+var mapStyle = "OSM" //choose between "Carto" and "OSM"; Carto looks better, but the policy is not very clear, so better use OSM
 		
 
 export function init() {
@@ -60,16 +61,19 @@ export function init() {
 	PictureNavigationContainer = document.getElementById('PictureNavigation');
 
 	/*Choose Tile layer*/
-	tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png';
-	//alternatives: 
-	//https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png 
-	//https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png
-	//https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+	if(mapStyle=="Carto"){
+		tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png';
+	}
+	else if(mapStyle=="OSM"){
+		tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+	}
 
-
-    attr = 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
-	//alternatives:
-	//'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+	if(mapStyle=="Carto"){
+		attr = 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
+	}
+	else if(mapStyle=="OSM"){
+		attr = 'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+}
 
 	/*set custom marker-icons*/
 	startIcon = new L.icon({

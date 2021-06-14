@@ -1,11 +1,13 @@
 # About
-University project about creating a navigation system for cars. 
+University project about creating a navigation system for an automotive driving simulator. 
 The navigation system software consists of multiple parts, namely:
-- Persistent left-sided information panel of the Instrument Cluster ("Homescreen"): https://github.com/FabianGermany/Homescreen-Instrument-Cluster
-- Navigation Screen of the Instrument Cluster (right part of the Instrument Cluster): https://github.com/FabianGermany/Navigation-System-Instrument-Cluster
-- Navigation Screen of the Central Console: https://github.com/philipnglr/agl-html5-navigation (not part of the screenshot below)
-- LED panel for visualization of navigation instructions: https://github.com/mueller-kai/Arduino_LedCode-for-Driving-Simulator
-- Routing algorithm: https://github.com/SebEckl/agl-service-routing.git
+
+
+- [Persistent information panel of the Instrument Cluster](https://github.com/FabianGermany/Homescreen-Instrument-Cluster) (left part of the Instrument Cluster, also called homescreen)
+- [Navigation Screen of the Instrument Cluster](https://github.com/FabianGermany/Navigation-System-Instrument-Cluster) (right part of the Instrument Cluster)
+- [Navigation Screen of the Central Console](https://github.com/philipnglr/agl-html5-navigation) (not part of the screenshot below)
+- [Routing algorithm](https://github.com/SebEckl/agl-service-routing.git)
+- [LED panel for visualization of navigation instructions](https://github.com/mueller-kai/Arduino_LedCode-for-Driving-Simulator)
 
 This repository is about the right part of the Instrument Cluster.
 
