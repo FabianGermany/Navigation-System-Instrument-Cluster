@@ -1,7 +1,7 @@
 # About
 
-![preview](readme_files/preview8.png)
-
+<<!--![preview](readme_files/preview8.png)-->
+![preview](readme_files/Animation_Snippet.gif)
 
 University project about creating a navigation system for an automotive driving simulator on Automotive Grade Linux (AGL) operating system. 
 The navigation system software consists of multiple parts, namely:
@@ -15,7 +15,7 @@ The navigation system software consists of multiple parts, namely:
 
 This repository is about the right part of the Instrument Cluster.
 
-![preview](readme_files/preview3.png)
+<!--![preview](readme_files/preview3.png)-->
 
 
 The mockup-files created with Figma software can be seen in the mockup folder of this project.
