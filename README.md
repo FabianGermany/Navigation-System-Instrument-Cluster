@@ -1,6 +1,6 @@
 # About
 
-<<!--![preview](readme_files/preview8.png)-->
+<!--![preview](readme_files/preview8.png)-->
 ![preview](readme_files/Animation_Snippet.gif)
 
 University project about creating a navigation system for an automotive driving simulator on Automotive Grade Linux (AGL) operating system. 
