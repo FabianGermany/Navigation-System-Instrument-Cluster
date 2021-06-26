@@ -107,30 +107,31 @@ The app will run in the browser now.
    ```
    scp -P 2223 navigationIC.wgt root@[IP-Address]:/tmp/
    ```
+
 Instead of ```[IP-Address] ``` use your own IP address.
 For more information, see our documentation which is not published here on GitHub. If you need the documentation, feel free to get in touch with us. 
 
 
 
 
-9\. Open another terminal in your operating system
+10\. Open another terminal in your operating system
 
-10\. Log into your AGL machine. Depending how your AGL virtual machine is connected to your current operating system, one way might be:
+11\. Log into your AGL machine. Depending how your AGL virtual machine is connected to your current operating system, one way might be:
    ```
    ssh -p 2223 root@localhost
    ```
 
-11\. Change directory:
+12\. Change directory:
    ```
    cd /tmp/
    ```
 
 
-10\. Install .wgt file on AGL:
+13\. Install .wgt file on AGL:
    ```
    afm-util install navigationIC.wgt
    ```
-11\. Reboot AGL machine. It's recommended to reboot at least twice.
+14\. Reboot AGL machine. It's recommended to reboot at least twice.
    ```
    reboot
    ```
