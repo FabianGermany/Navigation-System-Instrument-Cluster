@@ -88,7 +88,7 @@ This app can run in a browser since it's a HTML app. However, it's recommended t
    npm start
    ```
 7\. Type 
-```http://localhost:9002/ ```
+```http://localhost:9002/```
 in a browser such as Firefox Developer Edition. 
 The app will run in the browser now.
 
@@ -108,7 +108,7 @@ The app will run in the browser now.
    scp -P 2223 navigationIC.wgt root@[IP-Address]:/tmp/
    ```
 
-Instead of ```[IP-Address] ``` use your own IP address.
+Instead of ```[IP-Address]``` use your own IP address.
 For more information, see our documentation which is not published here on GitHub. If you need the documentation, feel free to get in touch with us. 
 
 
